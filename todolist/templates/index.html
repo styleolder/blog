@@ -5,51 +5,49 @@
     <title>Hello Django</title>
     {% load static %}
     <link rel="shortcut icon" href="{% static 'images/icon.jpg' %}" type="image/x-icon"/>
+     <link rel="stylesheet" href="{% static 'css/highlights/github.css' %}">
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="{% static 'css/pygments.css' %}">
 </head>
 <body>
 <div class="container">
     <div class="jumbotron">
         <h1>Hello Django Hello Bootstrap</h1>
-
         <p>
-
         <h2>
             <small>But Don`t Have Vue.js</small>
         </h2>
         <div class="row">
             {% if user.is_authenticated %}
-                <div class="col-md-10">
-                    <small>Hello {{ user.username }}</small>
-                </div>
-                <div class="col-md-2">
-                    <a href="{% url 'todolist:logout' %}?next={{ request.path }}">退出登录</a>
-                </div>
+            <div class="col-md-10">
+                <small>Hello {{ user.username }}</small>
+            </div>
+            <div class="col-md-2">
+                <a href="{% url 'todolist:logout' %}?next={{ request.path }}">退出登录</a>
+            </div>
             {% else %}
-                <div class="col-md-10">
-                    <small>Hello 访客</small>
-                </div>
-                <div class="col-md-2">
-                    <a href="{% url 'todolist:login' %}?next={{ request.path }}">登录系统</a>
-                </div>
+            <div class="col-md-10">
+                <small>Hello 访客</small>
+            </div>
+            <div class="col-md-2">
+                <a href="{% url 'todolist:login' %}?next={{ request.path }}">登录系统</a>
+            </div>
             {% endif %}
+            <blockquote>
+                <p>请输入内容 <i class="fa fa-level-down fa-2x"></i></p>
+            </blockquote>
+            <form action="/todolist/user?action=add" method="post">
+                {% csrf_token %}
+                <div class="col-xs-6">
+                    <textarea class="form-control" rows="10" name="content_text"></textarea>
+                </div>
+                <div class="col-xs-4">
+                    <input type="submit" value="提交" class="btn btn-success">
+                </div>
+            </form>
         </div>
-        <blockquote>
-            <p>请输入内容 <i class="fa fa-level-down fa-2x"></i></p>
-        </blockquote>
-        <form action="/todolist/user?action=add" method="post">
-            {% csrf_token %}
-            <div class="col-xs-6">
-                <input type="text" class="form-control" placeholder="点击添加内容" name="content_text">
-            </div>
-            <div class="col-xs-4">
-                <input type="submit" value="提交" class="btn btn-success">
-            </div>
-        </form>
     </div>
     <div class="table-responsive">
         <h2>任务列表</h2>
@@ -65,51 +63,52 @@
             </thead>
             <tbody>
             {% for task in tasks %}
-                <tr class="active">
-                    <td>{{ task.id }}</td>
-                    <td>{{ task.todolist_text|safe }}</td>
-                    <td>{{ task.pub_date|date:"Y-m-d H:i:s" }}</td>
-                    {% if task.todolist_state == "0" %}
-                        <td>
-                            <div class="dropdown">
-                                <a class="btn btn-success dropdown-toggle" data-toggle="dropdown"><i class="fa fa-server">
-                                    完成</i></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="status?id={{ task.id }}&code=0">完成</a></li>
-                                    <li><a href="status?id={{ task.id }}&code=1">进行中</a></li>
-                                    <li><a href="status?id={{ task.id }}&code=2">未完成</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    {% elif task.todolist_state == "1" %}
-                        <td>
-                            <div class="dropdown">
-                                <a class="btn btn-info dropdown-toggle" data-toggle="dropdown"><i class="fa fa-server">
-                                    进行中</i></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="status?id={{ task.id }}&code=0">完成</a></li>
-                                    <li><a href="status?id={{ task.id }}&code=1">进行中</a></li>
-                                    <li><a href="status?id={{ task.id }}&code=2">未完成</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    {% else %}
-                        <td>
-                            <div class="dropdown">
-                                <a class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-server">
-                                    未完成</i></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="status?id={{ task.id }}&code=0">完成</a></li>
-                                    <li><a href="status?id={{ task.id }}&code=1">进行中</a></li>
-                                    <li><a href="status?id={{ task.id }}&code=2">未完成</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    {% endif %}
-                    <td><a class="btn btn-primary" href="user?action=del&id={{ task.id }}" data-toggle="popover" title="删除" data-placement="top"><i
-                            class="fa fa-edit"></i></a></td>
-                    </td>
-                </tr>
+            <tr class="active">
+                <td>{{ task.id }}</td>
+                <td>{{ task.todolist_text|safe }}</td>
+                <td>{{ task.pub_date|date:"Y-m-d H:i:s" }}</td>
+                {% if task.todolist_state == "0" %}
+                <td>
+                    <div class="dropdown">
+                        <a class="btn btn-success dropdown-toggle" data-toggle="dropdown"><i class="fa fa-server">
+                            完成</i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="status?id={{ task.id }}&code=0">完成</a></li>
+                            <li><a href="status?id={{ task.id }}&code=1">进行中</a></li>
+                            <li><a href="status?id={{ task.id }}&code=2">未完成</a></li>
+                        </ul>
+                    </div>
+                </td>
+                {% elif task.todolist_state == "1" %}
+                <td>
+                    <div class="dropdown">
+                        <a class="btn btn-info dropdown-toggle" data-toggle="dropdown"><i class="fa fa-server">
+                            进行中</i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="status?id={{ task.id }}&code=0">完成</a></li>
+                            <li><a href="status?id={{ task.id }}&code=1">进行中</a></li>
+                            <li><a href="status?id={{ task.id }}&code=2">未完成</a></li>
+                        </ul>
+                    </div>
+                </td>
+                {% else %}
+                <td>
+                    <div class="dropdown">
+                        <a class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-server">
+                            未完成</i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="status?id={{ task.id }}&code=0">完成</a></li>
+                            <li><a href="status?id={{ task.id }}&code=1">进行中</a></li>
+                            <li><a href="status?id={{ task.id }}&code=2">未完成</a></li>
+                        </ul>
+                    </div>
+                </td>
+                {% endif %}
+                <td><a class="btn btn-primary" href="user?action=del&id={{ task.id }}" data-toggle="popover" title="删除"
+                       data-placement="top"><i
+                        class="fa fa-edit"></i></a></td>
+                </td>
+            </tr>
             {% endfor %}
             </tbody>
         </table>
@@ -119,9 +118,9 @@
     </footer>
 </div>
 <script>
-$(function (){
-    $("[data-toggle='popover']").tooltip();
-});
+    $(function () {
+        $("[data-toggle='popover']").tooltip();
+    });
 </script>
 </body>
 </html>

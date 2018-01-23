@@ -9,7 +9,7 @@ if __name__ == "__main__":
     except ImportError:
         # The above import may fail for some other reason. Ensure that the
         # issue is really that Django is missing to avoid masking other
-        # exceptions on Python 2.
+        # exceptions on Python 2.elk.l2cplat.cn
         try:
             import django
         except ImportError:
@@ -20,4 +20,3 @@ if __name__ == "__main__":
             )
         raise
     execute_from_command_line(sys.argv)
-
