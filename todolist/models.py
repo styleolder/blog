@@ -4,6 +4,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
+
 @python_2_unicode_compatible
 class TodoList(models.Model):
     todolist_text = models.CharField(max_length=200, verbose_name=u'任务内容')

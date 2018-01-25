@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'todolist',
+    'blog',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -118,3 +119,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 LOGIN_URL = '/todolist/login'
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
