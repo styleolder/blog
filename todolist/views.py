@@ -7,7 +7,6 @@ from django.utils import timezone
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 import markdown
-
 from models import TodoList
 
 
@@ -29,8 +28,9 @@ def user(request):
         word_action = request.GET.get('action')
         if word_action == "add":
             content_text = request.POST['content_text']
-            content_time = timezone.localtime(timezone.now()).strftime("%Y-%m-%d %H:%M:%S")
-            tasks = TodoList.objects.create(todolist_text=content_text, pub_date=content_time, todolist_state=1, dodolist_flag=0)
+            content_time = timezone.now()
+            print content_time
+            tasks = TodoList.objects.create(todolist_text=content_text, todolist_state=1, dodolist_flag=0)
             tasks.save()
         elif word_action == "del":
             word_id = request.GET.get('id')
