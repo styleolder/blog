@@ -65,5 +65,4 @@ def zone(request):
 def logout(request):
     auth.logout(request)
     next_page = request.GET.get('next', '/')
-    ##BUG
     return HttpResponseRedirect(next_page)
