@@ -2,8 +2,7 @@
 from __future__ import unicode_literals
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
-
+from django.contrib.auth.models import AbstractUser
 @python_2_unicode_compatible
 class TodoList(models.Model):
     todolist_text = models.CharField(max_length=200, verbose_name=u'任务内容')
@@ -19,16 +18,15 @@ class TodoList(models.Model):
         return self.todolist_text
 
 @python_2_unicode_compatible
-class User(AbstractBaseUser):
+class User(AbstractUser):
     username = models.CharField(max_length=200, verbose_name=u'用户名', blank=False, unique=True)
     qq = models.IntegerField(null=True, verbose_name='QQ', blank=False, unique=True)
     email = models.CharField(null=True, max_length=200, verbose_name=u'邮件', blank=False, unique=True)
-    USERNAME_FIELD = 'username'
-    #REQUIRED_FIELDS = ['username', 'qq', 'email']
 
-    class Meta:
-        verbose_name = u'用户信息'
+    class Meta(AbstractUser.Meta):
+        verbose_name = u'用户'
         verbose_name_plural = verbose_name
+        swappable = 'AUTH_USER_MODEL'
 
     def __str__(self):
         return self.username

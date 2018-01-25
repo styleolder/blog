@@ -22,6 +22,7 @@ def index(request):
                                      'markdown.extensions.toc',
                                   ])
     return render(request, 'index.html', {"tasks": tasks})
+
 @login_required
 def user(request):
      if request.GET:
@@ -42,6 +43,7 @@ def status(request):
      if request.GET:
         state_id = request.GET.get('id')
         todolist_status = request.GET.get('code')
+        print state_id,todolist_status
         TodoList.objects.filter(id=state_id).update(todolist_state=todolist_status)
      return HttpResponseRedirect('/todolist')
 
