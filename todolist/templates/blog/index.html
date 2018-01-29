@@ -1,0 +1,13 @@
+{% extends 'template/base.html' %}
+{% block main %}
+    <div class="col-sm-8 blog-main">
+            {% for blog in blogs %}
+                <div class="blog-post">
+                    <h4 class="blog-post-title"><a href="/blog/post/{{ blog.pk }}">{{ blog.blog_title }}</a></h4>
+                    <p class="blog-post-meta">{{ blog.created_time|date:"Y-m-d H:i:s" }}<a
+                            href="/blog/user/{{ blog.author }}">{{ blog.author }}</a></p>
+                    <p class="blog-post-content">{{ blog.excerpt }}...</p>
+                </div>
+            {% endfor %}
+        </div>
+{% endblock %}

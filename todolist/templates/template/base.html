@@ -1,25 +1,93 @@
 {% load staticfiles %}
+{% load blog_tags %}
 <!DOCTYPE html>
 <html>
 <head lang="zh-CN">
     <meta charset="UTF-8">
     <title>style的博客</title>
     <link rel="shortcut icon" href="{% static 'images/icon.jpg' %}" type="image/x-icon"/>
-    <link href="{% static 'css/bootstrap/3.3.7/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/font-awesome/font-awesome.min.css' %}" rel="stylesheet">
-    <script type="application/javascript" src="{% static 'js/jquery/2.1.4/jquery.min.js' %}"></script>
-    <script type="application/javascript" src="{% static 'js/bootstrap/3.3.7/bootstrap.min.js' %}"></script>
+    <link href="{% static 'css/bootstrap/3.3.7/bootstrap.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/font-awesome/font-awesome.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/blog/blog.css' %}" rel="stylesheet"/>
 </head>
 <body>
-<div class="container">
-    {% block heaher %}{% endblock %}
-    {% block content %}{% endblock %}
-    {% block footer %}
-        <footer>
-            <p>Posted by: style</p>
-            <p>Contact information: <a href="#">styleolder@github.com</a>.</p>
-        </footer>
-    {% endblock %}
+<div class="blog-masthead">
+    <div class="container navbar-collapse">
+        <nav class="blog-nav">
+            {% get_Category as Categorys %}
+            <a class="blog-nav-item active" href="/blog">Home</a>
+            {% for Category in Categorys %}
+                <a class="blog-nav-item" href="/blog/category/{{ Category.pk }}">{{ Category }}</a>
+            {% endfor %}
+        {% if user.is_authenticated %}
+        <form class="navbar-form navbar-right" method="POST" action="/blog/logout">
+            <span class="userinfo">Welcome {{ user }}</span>
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">logout</button>
+         </form>
+        {% else %}
+            <form class="navbar-form navbar-right" method="POST" action="/blog/login">
+            {% csrf_token %}
+            <div class="form-group">
+              <input type="text" placeholder="username" class="form-control" name= "username">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control" name= "password">
+            </div>
+            <button type="submit" class="btn btn-success">Sign in</button>
+            </form>
+        {% endif %}
+        </nav>
+    </div>
 </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2">
+            <h2>章节目录</h2>
+        </div>
+        {% block main %}{% endblock %}
+        <div class="col-sm-2">
+            <div class="sidebar-module sidebar-module-inset">
+                <h4>介绍信息</h4>
+                <p>
+                    <small>这是一个练习用的博客系统，目前有很多问题正在解决与完善</small>
+                </p>
+            </div>
+            <div class="sidebar-module">
+                <h4>归档文件</h4>
+                {% archives as date_list %}
+                <ul>
+                    {% for date in date_list %}
+                        <li>
+                            <a href="#">{{ date.year }} 年 {{ date.month }} 月</a>
+                        </li>
+                    {% empty %}
+                        暂无归档！
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="sidebar-module">
+                <h4>标签</h4>
+                {% get_tags as tags %}
+                <ol class="list-unstyled">
+                    {% for tag in tags %}
+                        <li><a href="/blog/tags/{{ tag.pk }}" class="btn btn-info" value="{{ tag }}">{{ tag }}</a>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container -->
+<footer class="blog-footer">
+    <p>Blog template built for <a href="#">Bootstrap</a> by
+        <a href="https://twitter.com/mdo">@mdo</a>.</p>
+
+    <p>
+        <a href="#">Back to top</a>
+    </p>
+</footer>
+<script type="application/javascript" src="{% static 'js/jquery/2.1.4/jquery.min.js' %}"></script>
+<script type="application/javascript" src="{% static 'js/bootstrap/3.3.7/bootstrap.min.js' %}"></script>
 </body>
 </html>
