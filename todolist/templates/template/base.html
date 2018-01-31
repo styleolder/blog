@@ -43,13 +43,14 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-2">
-            <h2>章节目录</h2>
+            {% block toc %}
+            {% endblock toc %}
         </div>
         {% block main %}{% endblock %}
         <div class="col-sm-2">
-        <div class="rss">
-                    <a href="{% url 'rss' %}"><i class="fa fa-rss fa-3x">RSS订阅</i></a>
-        </div>
+            <div class="rss">
+                <a href="{% url 'rss' %}"><i class="fa fa-rss fa-3x">RSS订阅</i></a>
+            </div>
             <div class="sidebar-module sidebar-module-inset">
                 <h4>介绍信息</h4>
 
@@ -86,6 +87,7 @@
 <footer class="blog-footer">
     <p>欢迎阅读 style 的博客空间 &copy; 2017
         <a href="#">style</a></p>
+
     <p>
         <a href="#">还没有备案号.谢谢支持</a>
     </p>
