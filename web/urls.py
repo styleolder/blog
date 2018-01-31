@@ -15,8 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.views import static
+from django.conf import settings
+from upload_image import upload_image
+from blog.feeds import AllPostsRssFeed
+
 urlpatterns = [
     url(r'^todolist/', include('todolist.urls', namespace='todolist')),
     url(r'^blog/', include('blog.urls', namespace='blog')),
     url(r'^admin/', admin.site.urls),
+    url(r'ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^upload/(?P<path>.*)$', static.serve, {'document_root': settings.MEDIA_ROOT, }),
+    url(r'^admin/upload/(?P<dir_name>[^/]+)$', upload_image, name='upload_image'),
+    url(r'^all/rss/$', AllPostsRssFeed(), name='rss'),
 ]

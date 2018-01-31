@@ -86,7 +86,10 @@ body {
     display:inline-block;
 }
 .blog-post {
-  margin-bottom: 60px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  box-shadow: 1px 1px 2px #888888;
 }
 .blog-post-title {
   margin-bottom: 5px;
@@ -112,4 +115,8 @@ body {
 }
 .blog-footer p:last-child {
   margin-bottom: 0;
+}
+.rss {
+    margin-top: 40px;
+    padding: 5px;
 }

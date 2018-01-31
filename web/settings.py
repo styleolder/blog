@@ -26,7 +26,9 @@ SECRET_KEY = '1gxe%6!ai0m@m7u2e5t*xclre!s7z$8u4846ekqh0g%+yx#mcs'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+MEDIA_URL = '/upload/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
+CKEDITOR_UPLOAD_PATH = '/upload/'
 
 # Application definition
 
@@ -39,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'todolist',
     'blog',
+    'ckeditor',
+    'ckeditor_uploader'
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -113,8 +117,11 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Full',
+    },
+}
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 LOGIN_URL = '/todolist/login'

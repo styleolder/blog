@@ -7,7 +7,7 @@ from django.utils import timezone
 
 @python_2_unicode_compatible
 class TodoList(models.Model):
-    todolist_text = models.CharField(max_length=200, verbose_name=u'任务内容')
+    todolist_text = models.TextField(max_length=200, verbose_name=u'任务内容')
     pub_date = models.DateTimeField(default=timezone.now, verbose_name='任务发布时间')
     todolist_state = models.IntegerField(verbose_name=u'任务状态')
     dodolist_flag = models.IntegerField(verbose_name=u'是否删除')
