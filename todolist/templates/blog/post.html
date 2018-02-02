@@ -9,3 +9,9 @@
                 </div>
         </div>
 {% endblock %}
+{% block toc %}
+    <h3 class="widget-title">文章目录</h3>
+        <div class="widget widget-content">
+        {{ blogs.toc|safe }}
+    </div>
+{% endblock %}

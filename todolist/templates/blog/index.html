@@ -35,9 +35,7 @@
 {% endblock %}
 {% block toc %}
     <h3 class="widget-title">文章目录</h3>
-    {% for blog in blogs %}
         <div class="widget widget-content">
-        {{ blog.toc|safe }}
+        {{ blogs.toc|safe }}
     </div>
-    {% endfor %}
 {% endblock %}
