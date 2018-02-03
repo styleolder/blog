@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="{% static 'images/icon.jpg' %}" type="image/x-icon"/>
     <link href="{% static 'css/bootstrap/3.3.7/bootstrap.min.css' %}" rel="stylesheet"/>
     <link href="{% static 'css/font-awesome/font-awesome.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'css/highlights/github.css' %}">
     <link href="{% static 'css/blog/blog.css' %}" rel="stylesheet"/>
 </head>
 <body>
@@ -46,6 +47,10 @@
             {% block toc %}
             {% endblock toc %}
         </div>
+    <form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
+                <input type="search" name="q" placeholder="搜索" required>
+                <button type="submit"><span class="ion-ios-search-strong">搜索</span></button>
+            </form>
         {% block main %}{% endblock %}
         <div class="col-sm-2">
             <div class="rss">

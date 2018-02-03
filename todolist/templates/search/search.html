@@ -1,0 +1,36 @@
+{% extends 'template/base.html' %}
+{% load highlight %}
+
+{% block main %}
+    {% if query %}
+        <div class="col-sm-8 blog-main">
+            {% for result in page.object_list %}
+                <div class="blog-post">
+                    <h4 class="blog-post-title"><a
+                            href="/blog/post/{{ result.object.pk }}">{% highlight result.object.blog_title  with query %}</a></h4>
+
+                    <p class="blog-post-meta">{{ result.object.created_time|date:"Y-m-d H:i:s" }}<a
+                            href="/blog/user/{{ result.object.author }}">{{ result.object.author }}</a></p>
+
+{#                    <p class="blog-post-content">{{ result.object.blog_content }}</p>#}
+                <p>{% highlight result.object.blog_content with query | safe %}</p>
+                </div>
+            {% empty %}
+                <div class="col-sm-8 blog-main">
+                    <div class="blog-post">
+                        <h4 class="blog-post-title">
+                            没有搜索到你想要的结果！</h4>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        请输入搜索关键词，例如 django
+    {% endif %}
+{% endblock main %}
+{% block toc %}
+    <h3 class="widget-title">文章目录</h3>
+    <div class="widget widget-content">
+        {{ blogs.toc|safe }}
+    </div>
+{% endblock %}

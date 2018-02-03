@@ -105,7 +105,6 @@ body {
 /*
  * Footer
  */
-
 .blog-footer {
   padding: 40px 0;
   color: #999;
@@ -119,4 +118,7 @@ body {
 .rss {
     margin-top: 40px;
     padding: 5px;
+}
+span.highlighted {
+    color: darkslategrey;
 }
