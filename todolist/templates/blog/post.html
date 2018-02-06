@@ -4,7 +4,7 @@
                 <div class="blog-post">
                     <h4 class="blog-post-title"><a href="/blog/post/{{ blogs.pk }}">{{ blogs.blog_title }}</a></h4>
                     <p class="blog-post-meta">{{ blogs.created_time|date:"Y-m-d H:i:s" }}<a
-                            href="/blog/user/{{ blogs.author }}">{{ blogs.author }}</a></p>
+                            href="/blog/user/{{ blogs.author.pk }}">{{ blogs.author }}</a></p>
                     <p class="blog-post-content">{{ blogs.blog_content|safe }}</p>
                 </div>
         </div>
