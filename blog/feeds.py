@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
-from .models import blog
+from blog.models import blog
 
 class AllPostsRssFeed(Feed):
     # 显示在聚合阅读器上的标题
