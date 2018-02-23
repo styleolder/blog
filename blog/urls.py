@@ -1,6 +1,7 @@
 from . import views
 from django.conf.urls import url
 app_name = 'blog'
+handler404 = "blog.views.page_not_found"
 
 urlpatterns = [
       url(r'^$', views.IndexView.as_view(),name='index'),

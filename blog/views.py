@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render,  get_object_or_404
+from django.shortcuts import render, get_object_or_404
 import markdown
 from models import blog, Tag, Category
 from django.contrib import auth
@@ -20,13 +20,13 @@ class PostView(DetailView):
     template_name = 'blog/post.html'
     context_object_name = 'blogs'
 
-    def get_object(self, queryset=None):
+    def get_object(self):
         # 覆写 get_object 方法的目的是因为需要对 post 的 body 值进行渲染
         blogs = super(PostView, self).get_object(queryset=None)
         md = markdown.Markdown(extensions=[
-                'markdown.extensions.extra',
-                'markdown.extensions.codehilite',
-                'markdown.extensions.toc',
+            'markdown.extensions.extra',
+            'markdown.extensions.codehilite',
+            'markdown.extensions.toc',
         ])
         blogs.blog_content = md.convert(blogs.blog_content)
         blogs.toc = md.toc

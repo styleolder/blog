@@ -7,7 +7,7 @@ from todolist.models import User
 import markdown
 from django.utils.html import strip_tags
 # from ckeditor_uploader.fields import RichTextUploadingField
-
+from django.urls import reverse
 #支持python2
 @python_2_unicode_compatible
 class Category(models.Model):
@@ -103,6 +103,9 @@ class blog(models.Model):
         # 调用父类的 save 方法将数据保存到数据库中
         super(blog, self).save(*args, **kwargs)
     #默认返回值,并且在后台有显示信息
+    def get_absolute_url(self):
+        return reverse('blog:post', kwargs={'pk': self.pk})
+
     def __str__(self):
         return self.blog_title
 
