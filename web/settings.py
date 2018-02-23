@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '1gxe%6!ai0m@m7u2e5t*xclre!s7z$8u4846ekqh0g%+yx#mcs'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = "*"
 
 MEDIA_URL = '/upload/'
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'todolist',
     ##添加应用
     'blog',
+    'comments',
     'ckeditor',
     'ckeditor_uploader',
 ]
