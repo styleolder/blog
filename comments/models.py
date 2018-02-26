@@ -7,8 +7,7 @@ from django.utils.encoding import python_2_unicode_compatible
 # Create your models here.
 @python_2_unicode_compatible
 class Comment(models.Model):
-    name = models.OneToOneField(User)
-    user_icon = models.ImageField(upload_to="image/%Y/%m", default=u"image/default.png", max_length=100)
+    name = models.ForeignKey(User)
     text = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
     post = models.ForeignKey(blog)

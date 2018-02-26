@@ -1,0 +1,20 @@
+{% extends 'template/base.html' %}
+{% block main %}
+    <div class="col-sm-8 blog-main">
+        {% if Comments %}
+        {% for Comment in Comments %}
+            <div class="post-comment">
+                <h4 class="post-comment-title"><a href="#">{{ Comment.name }}</a></h4>
+            <h4 class="post-comment-title"><img  src="/upload/{{ Comment.user_icon }}"></h4>
+            <h4 class="post-comment-title"><a href="#">{{ Comment.text|safe }}</a></h4>
+            <h4 class="post-comment-title"><a href="#">{{ Comment.created_time }}</a></h4>
+            <h4 class="post-comment-title"><a href="#">{{ Comment.post }}</a></h4>
+            </div>
+        {% endfor %}
+        {% else %}
+            <div class="post-comment-post">
+                <h4 class="post-comment-title"><a href="#">很抱歉没有你需要的信息</a></h4>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -29,4 +29,5 @@ urlpatterns = [
     url(r'^admin/upload/(?P<dir_name>[^/]+)$', upload_image, name='upload_image'),
     url(r'^all/rss/$', AllPostsRssFeed(), name='rss'),
     url(r'^search/', include('haystack.urls')),
+    url(r'^comment/', include('comments.urls'), name='comment'),
 ]

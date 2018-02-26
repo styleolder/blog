@@ -24,7 +24,7 @@ class User(AbstractUser):
     username = models.CharField(max_length=200, verbose_name=u'用户名', blank=False, unique=True)
     qq = models.IntegerField(null=True, verbose_name='QQ', blank=False, unique=True)
     email = models.CharField(null=True, max_length=200, verbose_name=u'邮件', blank=False, unique=True)
-    image = models.ImageField(upload_to="images/%Y/%m", default=u"static/images/default.png", max_length=500)
+    user_icon = models.ImageField(upload_to="images/%Y/%m", default=u"image/default.png", max_length=500)
     class Meta(AbstractUser.Meta):
         verbose_name = u'用户'
         verbose_name_plural = verbose_name

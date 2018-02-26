@@ -15,9 +15,9 @@ class TodoListAdmin(admin.ModelAdmin):
     list_editable = ('todolist_state', 'dodolist_flag')
 
 class UsertAdmin(admin.ModelAdmin):
-    fields = ('username', 'password', 'email', 'qq', 'last_login')
+    fields = ('username', 'password', 'email', 'qq', 'last_login','user_icon')
     search_fields = ['qq']
-    list_display = ('username', 'email', 'qq', 'last_login', 'is_active')
+    list_display = ('username', 'email', 'qq', 'last_login', 'is_active','user_icon')
 
 admin.site.register(TodoList, TodoListAdmin)
 admin.site.register(User, UsertAdmin)

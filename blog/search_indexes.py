@@ -1,5 +1,5 @@
 from haystack import indexes
-from .models import blog
+from blog.models import blog
 
 
 class blogIndex(indexes.SearchIndex, indexes.Indexable):

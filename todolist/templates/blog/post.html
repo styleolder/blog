@@ -7,6 +7,25 @@
                             href="{% url 'blog:user' blogs.author.pk %}">{{ blogs.author }}</a></p>
                     <p class="blog-post-content">{{ blogs.blog_content|safe }}</p>
                 </div>
+                <h4>评论专区</h4>
+                {% if blogs.comment_set.all %}
+                    <span>总共{{ blogs.comment_set.all.count }}评论</span>
+                {% for Comment in blogs.comment_set.all %}
+                <div class="post-comment" style="height: 60px;width: 100%">
+                    <div class="post-comment-left" style="width: 60px;height: 60px;margin: 0;padding: 0;display: inline-block">
+                        <img src="/upload/{{ Comment.name.user_icon }}" style="width: 60px;height: 60px" >
+                    </div>
+                    <div class="post-comment-right" style="font-size: 14px;display: inline-block;line-height: 14px;font-size: 14px">
+                        <span><a href="#">{{ Comment.name }}</a></span>
+                        <span class="post-comment-title" style="display:block"><a href="#">{{ Comment.text|safe }}</a></span>
+                        <span class="post-comment-title"><a href="#">{{ Comment.created_time }}</a></span>
+                    </div>
+                </div>
+                <hr>
+                {% endfor %}
+                {% else %}
+
+                {% endif %}
         </div>
 {% endblock %}
 {% block toc %}
