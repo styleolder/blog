@@ -5,7 +5,7 @@ handler404 = "blog.views.page_not_found"
 
 urlpatterns = [
       url(r'^$', views.IndexView.as_view(),name='index'),
-      url(r'^post/(?P<pk>[0-9]+)/$', views.PostView.as_view(),name='post'),
+      url(r'^post/(?P<pk>[0-9]+)', views.PostView.as_view(),name='post'),
       url(r'^category/(?P<pk>[0-9]+)', views.CategoryView.as_view(),name='category'),
       url(r'^login', views.login,name='login'),
       url(r'^logout', views.logout,name='logout'),
