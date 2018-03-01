@@ -12,7 +12,6 @@ from todolist.models import User
 from markdown.extensions.toc import TocExtension
 from django.utils.text import slugify
 
-
 class IndexView(ListView):
     model = blog
     template_name = 'blog/index.html'
@@ -25,10 +24,8 @@ class PostView(DetailView):
     template_name = 'blog/post.html'
     context_object_name = 'blogs'
 
-
-    def get_object(self):
-        # 覆写 get_object 方法的目的是因为需要对 post 的 body 值进行渲染
-        blogs = super(PostView, self).get_object(queryset=None)
+    def get_object(self, queryset=None):
+        blogs = super(PostView, self).get_object(queryset=queryset)
         md = markdown.Markdown(extensions=[
             'markdown.extensions.extra',
             'markdown.extensions.codehilite',
@@ -37,7 +34,36 @@ class PostView(DetailView):
         blogs.blog_content = md.convert(blogs.blog_content)
         blogs.toc = md.toc
         return blogs
+    def get_context_data(self, **kwargs):
+        context = super(PostView,self).get_context_data(**kwargs)
+        post = self.object
 
+        try:
+            previous_post = post.get_previous_by_created_time()
+        except blog.DoesNotExist:
+            previous_post = None
+
+        try:
+            next_post = post.get_next_by_created_time()
+        except blog.DoesNotExist:
+            next_post = None
+        self.template_name = 'blog/post.html'
+        post_list = list(blog.objects.all().order_by('-created_time'))
+        context['post_list'] = post_list
+        idx = post_list.index(post)
+        try:
+            previous_post = post_list[idx - 1 if idx > 1 else None]
+        except (IndexError, TypeError):
+            previous_post = None
+
+        try:
+            next_post = post_list[idx + 1]
+        except IndexError:
+            next_post = None
+        context['previous_post'] = previous_post
+        context['next_post'] = next_post
+
+        return context
 class ArchivesView(ListView):
     model = blog
     template_name = 'blog/index.html'
@@ -100,20 +126,3 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/blog')
-
-
-def listing(request):
-    contact_list = blog.objects.all()
-    paginator = Paginator(contact_list, 1)
-
-    page = request.GET.get('page')
-    try:
-        contacts = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        contacts = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        contacts = paginator.page(paginator.num_pages)
-
-    return render(request, 'blog/post.html', {'contacts': contacts})
