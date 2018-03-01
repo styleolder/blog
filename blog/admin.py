@@ -6,7 +6,7 @@ from blog.models import Category, Tag, blog
 #扩展后台管理界面
 class BlogAdmin(admin.ModelAdmin):
     #fields显示admin界面的字段顺序
-    fields = ['blog_title', 'blog_content', 'category', 'tags', 'author', 'created_time', 'modified_time', 'excerpt']
+    fields = ['blog_title', 'blog_content', 'category', 'tags', 'author', 'created_time', 'excerpt']
 
     #检索框的搜索范围设置
     search_fields = ['blog_content', 'blog_title', 'author']
@@ -18,7 +18,8 @@ class BlogAdmin(admin.ModelAdmin):
     list_display = (
         'blog_title',
         'author',
-        'created_time'
+        'created_time',
+        'modified_time'
     )
     #根据不同的种类信息进行分割显示
     # #fieldsets = [

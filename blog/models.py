@@ -47,7 +47,7 @@ class blog(models.Model):
     blog_content = models.TextField(verbose_name=u'博客内容')
     blog_title = models.CharField(max_length=200, verbose_name=u'博客标题')
     created_time = models.DateTimeField(default=timezone.now, verbose_name='博客创建时间')
-    modified_time = models.DateTimeField(default=timezone.now, verbose_name='博客修改时间')
+    modified_time = models.DateTimeField(auto_now=True)
     excerpt = models.CharField(max_length=200, blank=True)
 
     #ForeignKey一对多的关系

@@ -9,16 +9,22 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView
 from todolist.models import User
+from markdown.extensions.toc import TocExtension
+from django.utils.text import slugify
+
+
 class IndexView(ListView):
     model = blog
     template_name = 'blog/index.html'
     context_object_name = 'blogs'
     paginate_by = 5
 
+
 class PostView(DetailView):
     model = blog
     template_name = 'blog/post.html'
     context_object_name = 'blogs'
+
 
     def get_object(self):
         # 覆写 get_object 方法的目的是因为需要对 post 的 body 值进行渲染
@@ -26,7 +32,7 @@ class PostView(DetailView):
         md = markdown.Markdown(extensions=[
             'markdown.extensions.extra',
             'markdown.extensions.codehilite',
-            'markdown.extensions.toc',
+            TocExtension(slugify=slugify),
         ])
         blogs.blog_content = md.convert(blogs.blog_content)
         blogs.toc = md.toc
@@ -43,7 +49,9 @@ class ArchivesView(ListView):
         month = int(self.kwargs.get('month'))
         return super(ArchivesView, self).get_queryset().filter(created_time__year=year,
                                                                created_time__month=month
-                                                               )
+        )
+
+
 class TagsView(ListView):
     model = blog
     template_name = 'blog/index.html'
@@ -65,6 +73,7 @@ class CategoryView(ListView):
         cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
         return super(CategoryView, self).get_queryset().filter(category=cate)
 
+
 class UserView(ListView):
     model = blog
     template_name = 'blog/index.html'
@@ -74,6 +83,7 @@ class UserView(ListView):
     def get_queryset(self):
         user_id = get_object_or_404(User, pk=self.kwargs.get('pk'))
         return super(UserView, self).get_queryset().filter(author=user_id)
+
 
 def login(request):
     if request.method == 'POST':
@@ -85,7 +95,25 @@ def login(request):
             return HttpResponseRedirect('/blog')
     return render(request, 'blog/index.html')
 
+
 @login_required(login_url="/blog")
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/blog')
+
+
+def listing(request):
+    contact_list = blog.objects.all()
+    paginator = Paginator(contact_list, 1)
+
+    page = request.GET.get('page')
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        contacts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        contacts = paginator.page(paginator.num_pages)
+
+    return render(request, 'blog/post.html', {'contacts': contacts})
