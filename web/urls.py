@@ -19,15 +19,26 @@ from django.views import static
 from django.conf import settings
 from upload_image import upload_image
 from blog.feeds import AllPostsRssFeed
+from django.contrib.sitemaps.views import sitemap
+from blog.models import blog
+from django.contrib.sitemaps import GenericSitemap
+
+info_dict = {
+    'queryset': blog.objects.all(),
+    'date_field': 'created_time',
+}
 
 urlpatterns = [
     url(r'^todolist/', include('todolist.urls', namespace='todolist')),
     url(r'^blog/', include('blog.urls', namespace='blog')),
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls, name='index'),
     url(r'ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^upload/(?P<path>.*)$', static.serve, {'document_root': settings.MEDIA_ROOT, }),
     url(r'^admin/upload/(?P<dir_name>[^/]+)$', upload_image, name='upload_image'),
     url(r'^all/rss/$', AllPostsRssFeed(), name='rss'),
     url(r'^search/', include('haystack.urls')),
     url(r'^comment/', include('comments.urls'), name='comment'),
+    url(r'^sitemap\.xml$', sitemap,
+        {'sitemaps': {'blog': GenericSitemap(info_dict, priority=0.6)}},
+        name='django.contrib.sitemaps.views.sitemap'),
 ]
