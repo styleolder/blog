@@ -24,13 +24,16 @@ from django.utils import timezone
 @python_2_unicode_compatible
 class Comments(MPTTModel):
     text = models.TextField(blank=False, max_length=1024, verbose_name=u'评论内容')
-    parent = models.ForeignKey("self", blank=True, null=True, related_name="children",default=None)
+    parent = models.ForeignKey("self", blank=True, null=True, related_name="children", default=None)
     name = models.ForeignKey(User)
     created_time = models.DateTimeField(default=timezone.now, verbose_name='创建时间')
     post = models.ForeignKey(blog)
-    last_time = models.DateTimeField(auto_now_add=True,verbose_name='最后更新时间')
+    last_time = models.DateTimeField(auto_now=True, verbose_name='最后更新时间')
+
     class Meta:
         verbose_name = u'多层评论'
         verbose_name_plural = verbose_name
+        ordering = ['created_time']
+
     def __str__(self):
         return str(self.id)

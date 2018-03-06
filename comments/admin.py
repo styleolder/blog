@@ -16,6 +16,7 @@ class CommentAdmin(MPTTModelAdmin):
         'name',
         'text',
         'created_time',
+        'last_time'
     )
     class Media:
         js = ('/static/js/kindeditor/kindeditor-all-min.js',
