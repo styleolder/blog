@@ -1,5 +1,6 @@
 from django import template
 from ..models import blog, Category, Tag
+from comments.models import Comments
 register = template.Library()
 from django.utils.safestring import mark_safe
 import markdown
@@ -24,4 +25,9 @@ def get_Category():
 def get_toc():
     tocs = blog.objects.all().order_by("-pk")
     return tocs
+
+@register.simple_tag
+def get_nodes():
+    nodes = Comments.objects.all()
+    return nodes
 

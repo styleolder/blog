@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'comments',
     'ckeditor',
     'ckeditor_uploader',
+    'rest_framework',
+    'mptt',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
