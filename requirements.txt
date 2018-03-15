@@ -31,6 +31,7 @@ django-pagedown==1.0.4
 django-simple-serializer==2.0.7
 django-sslserver==0.20
 django-test-plus==1.0.18
+djangorestframework==3.7.7
 enum34==1.1.6
 factory-boy==2.9.2
 Faker==0.8.11
@@ -61,7 +62,6 @@ pycparser==2.18
 PyDispatcher==2.0.5
 Pygments==2.2.0
 pyOpenSSL==17.5.0
-pypiwin32==219
 python-dateutil==2.6.1
 python-openid==2.2.5
 python-ptrace==0.9.3
@@ -76,7 +76,7 @@ service-identity==17.0.0
 six==1.11.0
 sqlparse==0.2.4
 text-unidecode==1.2
-Twisted==16.5.0
+Twisted==17.9.0
 urllib3==1.22
 vue==0.0.1
 w3lib==1.18.0
