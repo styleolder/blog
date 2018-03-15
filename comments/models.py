@@ -4,6 +4,7 @@ from django.db import models
 from todolist.models import User
 from blog.models import blog
 from django.utils.encoding import python_2_unicode_compatible
+from blog.models import blog
 # Create your models here.
 @python_2_unicode_compatible
 class Comment(models.Model):
