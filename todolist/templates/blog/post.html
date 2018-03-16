@@ -1,11 +1,12 @@
 {% extends 'template/base.html' %}
 {% load staticfiles %}
 {% load blog_tags %}
+{% load mptt_tags %}
 {% block main %}
     <div class="blog-post">
         <h4 class="blog-post-title"><a href="{% url 'blog:post' blogs.pk %}">{{ blogs.blog_title }}</a></h4>
 
-        <p class="blog-post-meta">{{ blogs.created_time|date:"Y-m-d H:i:s" }}<a
+        <p class="blog-post-meta">{{ blogs.created_time|timesince }}前<a
                 href="{% url 'blog:user' blogs.author.pk %}">{{ blogs.author }}</a></p>
 
         <p class="blog-post-content">{{ blogs.blog_content|safe }}</p>
@@ -26,35 +27,27 @@
         <hr>
     </div>
     <h4>评论专区</h4>
-    {% if blogs.comment_set.all %}
-        <span>总共{{ blogs.comment_set.all.count }}评论</span>
-        <form action="#">
+    <form action="#">
             <div id="my-editormd">
                 <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc"
                           style="display:none;"></textarea>
                 <!-- 注意：name属性的值-->
                 <textarea id="my-editormd-html-code" name="my-editormd-html-code" style="display:none;"></textarea>
             </div>
-        </form>
-        {% for Comment in blogs.comment_set.all %}
-            <div class="post-comment" style="height: 60px;width: 100%">
-                <div class="post-comment-left"
-                     style="width: 60px;height: 60px;margin: 0;padding: 0;display: inline-block">
-                    <img src="/upload/{{ Comment.name.user_icon }}" style="width: 60px;height: 60px">
-                </div>
-                <div class="post-comment-right"
-                     style="font-size: 14px;display: inline-block;line-height: 14px;font-size: 14px">
-                    <span><a href="#">{{ Comment.name }}</a></span>
-                        <span class="post-comment-title" style="display:block"><a
-                                href="#">{{ Comment.text|safe }}</a></span>
-                    <span class="post-comment-title"><a href="#">{{ Comment.created_time }}</a></span>
-                </div>
-            </div>
-            <hr>
-        {% endfor %}
-    {% else %}
-        <span>没有有评论</span>
-    {% endif %}
+            <input type="submit" value="提交" class="btn">
+    </form>
+<ul class="comment-list-ul">
+    {% recursetree blogs.comment_set.all %}
+        <li class="comment-list-li">
+            {% include 'blog/comment.html' with comment=node counter=revcounter level=node.level %}
+            {% if not node.is_leaf_node %}
+                <ul>
+                    {% include 'blog/comment_children.html'%}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>
 {% endblock %}
 {% block toc %}
     {% get_toc as tocs %}
@@ -73,7 +66,7 @@
     <script type="text/javascript">
         $(function () {
             editormd("my-editormd", {//注意1：这里的就是上面的DIV的id属性值
-                width: "100%",
+                width: "90%",
                 height: 400,
                 syncScrolling: "single",
                 path: "{% static 'editor/lib/' %}",//注意2：你的路径

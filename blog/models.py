@@ -49,7 +49,6 @@ class blog(models.Model):
     created_time = models.DateTimeField(default=timezone.now, verbose_name='博客创建时间')
     modified_time = models.DateTimeField(auto_now=True)
     excerpt = models.CharField(max_length=200, blank=True)
-
     #ForeignKey一对多的关系
     #添加
     #t1=Tag.objects.create(Tag_name="赞助")
@@ -103,6 +102,7 @@ class blog(models.Model):
         # 调用父类的 save 方法将数据保存到数据库中
         super(blog, self).save(*args, **kwargs)
     #默认返回值,并且在后台有显示信息
+
     def get_absolute_url(self):
         return reverse('blog:post', kwargs={'pk': self.pk})
 

@@ -34,6 +34,7 @@ class PostView(DetailView):
         blogs.blog_content = md.convert(blogs.blog_content)
         blogs.toc = md.toc
         return blogs
+
     def get_context_data(self, **kwargs):
         context = super(PostView,self).get_context_data(**kwargs)
         post = self.object
@@ -64,6 +65,7 @@ class PostView(DetailView):
         context['next_post'] = next_post
 
         return context
+
 class ArchivesView(ListView):
     model = blog
     template_name = 'blog/index.html'

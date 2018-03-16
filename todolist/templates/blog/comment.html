@@ -1,0 +1,11 @@
+<div class="post-comment">
+    <div class="post-comment-left">
+        <img src="/upload/{{ node.name.user_icon }}">
+    </div>
+    <div class="post-comment-right">
+        <span><a href="#">{{ node.name }}</a></span>
+                        <p class="post-comment-title"><a href="#">{{ node.text|safe }}</a></p>
+        <span class="post-comment-title"><a href="#">{{ node.created_time }}</a></span>
+    </div>
+</div>
+<hr>

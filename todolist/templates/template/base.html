@@ -2,6 +2,7 @@
 {% load blog_tags %}
 <!DOCTYPE html>
 <html>
+<!-- head_start -->
 <head lang="zh-CN">
     <meta charset="UTF-8">
     <title>style的博客</title>
@@ -12,7 +13,10 @@
     <link rel="stylesheet" href="{% static 'css/highlights/default.css' %}">
     <link href="{% static 'css/blog/blog.css' %}" rel="stylesheet"/>
 </head>
+<!-- head_end -->
 <body>
+<!-- /.container -->
+<!-- /.container-nav -->
 <div class="blog-masthead">
     <div class="container">
         <nav class="blog-nav">
@@ -42,6 +46,8 @@
         </nav>
     </div>
 </div>
+<!-- /.container-nav -->
+<!-- /.container-full -->
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3">
@@ -64,7 +70,6 @@
         </form>
         <div class="col-sm-7 blog-main">
             {% block main %}
-
             {% endblock %}
         </div>
         <div class="col-sm-2">
@@ -106,7 +111,9 @@
         </div>
     </div>
 </div>
+<!-- /.container-full -->
 <!-- /.container -->
+<!-- /.footer -->
 <footer class="blog-footer">
     <p>欢迎阅读 style 的博客空间 &copy; 2017
         <a href="#">style</a></p>
@@ -115,9 +122,12 @@
         <a href="#">还没有备案号.谢谢支持</a>
     </p>
 </footer>
+<!-- /.footer -->
+<!-- /.script -->
 <script type="application/javascript" src="{% static 'js/jquery/2.1.4/jquery.min.js' %}"></script>
 <script type="application/javascript" src="{% static 'js/bootstrap/3.3.7/bootstrap.min.js' %}"></script>
 {% block footerscript %}
 {% endblock %}
+<!-- /.script -->
 </body>
 </html>
