@@ -25,7 +25,7 @@ def blog_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'DELETE'])
 @csrf_exempt
 def blog_detail(request, pk):
     """
@@ -39,13 +39,6 @@ def blog_detail(request, pk):
     if request.method == 'GET':
         serializer = BlogSerializer(snippet)
         return Response(serializer.data)
-
-    elif request.method == 'PUT':
-        serializer = BlogSerializer(snippet, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         snippet.delete()
