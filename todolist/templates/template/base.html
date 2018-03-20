@@ -26,22 +26,9 @@
                 <a class="blog-nav-item" href="{% url 'blog:category' Category.pk %}">{{ Category }}</a>
             {% endfor %}
             {% if user.is_authenticated %}
-                <form class="navbar-form navbar-right" method="POST" action="{% url 'blog:logout' %}">
-                    <span class="userinfo">Welcome {{ user }}</span>
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-success">logout</button>
-                </form>
+                <input class="blog-nav-item btn btn-info" value="欢迎 {{ user }}" style="float:right">
             {% else %}
-                <form class="navbar-form navbar-right" method="POST" action="{% url 'blog:login' %}">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <input type="text" placeholder="username" class="form-control" name="username">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" placeholder="Password" class="form-control" name="password">
-                    </div>
-                    <button type="submit" class="btn btn-success">Sign in</button>
-                </form>
+                <a class="blog-nav-item"  href="{% url 'blog:user_login' %}" style="float:right;">登录</a>
             {% endif %}
         </nav>
     </div>
@@ -76,10 +63,16 @@
                 <a href="{% url 'rss' %}"><i class="fa fa-rss fa-3x">RSS订阅</i></a>
             </div>
             <div class="sidebar-module sidebar-module-inset">
-                <h4>介绍信息</h4>
-
+                <h4>Django学习小组 QQ 群</h4>
                 <p>
-                    <small>这是一个练习用的博客系统，目前有很多问题正在解决与完善</small>
+                    <small>645793268</small>
+                </p>
+                <h4>友情链接</h4>
+                <p>
+                    <small><a href="https://www.zmrenwu.com/">追梦人的博客</a></small>
+                </p>
+                <p>
+                    <small><a href="https://github.com/styleolder/blog">源码分享地址 https://github.com/styleolder/blog</a></small>
                 </p>
             </div>
             <div class="sidebar-module">

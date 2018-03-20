@@ -128,3 +128,10 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/blog')
+
+
+def user_login(request):
+    if request.method == 'GET':
+        return render(request, 'blog/login.html')
+    else:
+        return HttpResponseRedirect('/blog')
