@@ -27,9 +27,6 @@ SECRET_KEY = '1gxe%6!ai0m@m7u2e5t*xclre!s7z$8u4846ekqh0g%+yx#mcs'
 DEBUG = True
 ALLOWED_HOSTS = "*"
 
-MEDIA_URL = '/upload/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
-CKEDITOR_UPLOAD_PATH = '/upload/'
 
 # Application definition
 
@@ -41,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
-    'django.contrib.sites',
+    #首次初始化的时候没有组权限，目前还不清楚问题出在哪里
+    # 'django.contrib.sites',
     'haystack',
     ##添加应用
     'todolist',
@@ -69,7 +67,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         #添加模板文件存放路径
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,6 +125,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+CKEDITOR_UPLOAD_PATH = '/upload/'
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Full',
@@ -134,9 +133,6 @@ CKEDITOR_CONFIGS = {
 }
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-LOGIN_URL = '/todolist/login'
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 HAYSTACK_CONNECTIONS = {
     'default': {
@@ -146,4 +142,12 @@ HAYSTACK_CONNECTIONS = {
 }
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
-SITE_ID=1
+
+#添加静态文件路径
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+MEDIA_URL = '/upload/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')

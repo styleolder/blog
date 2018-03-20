@@ -1,0 +1,125 @@
+{% load staticfiles %}
+{% load blog_tags %}
+<!DOCTYPE html>
+<html>
+<!-- head_start -->
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <title>style的博客</title>
+    <link rel="shortcut icon" href="{% static 'images/icon.jpg' %}" type="image/x-icon"/>
+    <link href="{% static 'css/bootstrap/3.3.7/bootstrap.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'editor/css/editormd.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/highlights/default.css' %}">
+    <link href="{% static 'css/blog/blog.css' %}" rel="stylesheet"/>
+</head>
+<!-- head_end -->
+<body>
+<!-- /.container -->
+<!-- /.container-nav -->
+<div class="blog-masthead">
+    <div class="container">
+        <nav class="blog-nav">
+            {% get_Category as Categorys %}
+            <a class="blog-nav-item navbar-left" href="/blog">Home</a>
+            {% for Category in Categorys %}
+                <a class="blog-nav-item" href="{% url 'blog:category' Category.pk %}">{{ Category }}</a>
+            {% endfor %}
+            {% if user.is_authenticated %}
+                <a class="blog-nav-item" style="float:right">{{ user }}</a>
+            {% else %}
+                <a class="blog-nav-item"  href="{% url 'blog:user_login' %}" style="float:right;">登录</a>
+            {% endif %}
+            <form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}" style="position: absolute;right: 10%;height: 24px;top: 16px">
+                <input type="search" name="q" placeholder="搜索" required>
+                <button type="submit"><span class="ion-ios-search-strong">搜索</span></button>
+            </form>
+        </nav>
+    </div>
+</div>
+<!-- /.container-nav -->
+<!-- /.container-full -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2">
+            <h3 class="widget-title" style="text-align: center">文章目录</h3>
+            <div class="widget widget-content">
+                {% block toc %}
+                    {% get_toc as tocs %}
+                    {% for toc in tocs %}
+                        <ul style="list-style: none">
+                            <li><a href="{% url 'blog:post' toc.pk %}">{{ toc.blog_title }}</a></li>
+                        </ul>
+                    {% endfor %}
+                {% endblock %}
+            </div>
+        </div>
+        <div class="col-sm-7 blog-main">
+            {% block main %}
+            {% endblock %}
+        </div>
+        <div class="col-sm-2">
+            <div class="rss">
+                <a href="{% url 'rss' %}"><i class="fa fa-rss fa-3x">RSS订阅</i></a>
+            </div>
+            <div class="sidebar-module sidebar-module-inset">
+                <h4>Django学习小组 QQ 群</h4>
+                <p>
+                    <small>645793268</small>
+                </p>
+                <h4>友情链接</h4>
+                <p>
+                    <small><a href="https://www.zmrenwu.com/">追梦人的博客</a></small>
+                </p>
+                <p>
+                    <small><a href="https://github.com/styleolder/blog">源码分享地址 https://github.com/styleolder/blog</a></small>
+                </p>
+            </div>
+            <div class="sidebar-module">
+                <h4>归档文件</h4>
+                {% archives as date_list %}
+                <ul>
+                    {% for date in date_list %}
+                        <li>
+                            <a href="{% url 'blog:archives' date.year date.month %}">{{ date.year }} 年 {{ date.month }}
+                                月</a>
+                        </li>
+                    {% empty %}
+                        <small>暂无归档</small>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="sidebar-module">
+                <h4>标签</h4>
+                {% get_tags as tags %}
+                <ol class="list-unstyled">
+                    {% for tag in tags %}
+                        <li><a href="{% url 'blog:tags' tag.pk %}" class="btn btn-info" value="{{ tag }}">{{ tag }}</a>
+                    {% empty %}
+                        <small>暂无标签</small>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-full -->
+<!-- /.container -->
+<!-- /.footer -->
+<footer class="blog-footer">
+    <p>欢迎阅读 style 的博客空间 &copy; 2017
+        <a href="#">style</a></p>
+
+    <p>
+        <a href="#">还没有备案号.谢谢支持</a>
+    </p>
+</footer>
+<!-- /.footer -->
+<!-- /.script -->
+<script type="application/javascript" src="{% static 'js/jquery/2.1.4/jquery.min.js' %}"></script>
+<script type="application/javascript" src="{% static 'js/bootstrap/3.3.7/bootstrap.min.js' %}"></script>
+{% block footerscript %}
+{% endblock %}
+<!-- /.script -->
+</body>
+</html>
