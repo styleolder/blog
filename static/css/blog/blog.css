@@ -183,3 +183,13 @@ span.highlighted {
     font-size: 10px;
     color: #0000FF;
 }
+#searchform {
+    position: absolute;
+     right: 10%;
+     height: 24px;
+     top: 16px;
+ }
+.blog-nav-item.blog-nav-user {
+    float: right;
+    margin-right: 40px;
+}

@@ -26,11 +26,11 @@
                 <a class="blog-nav-item" href="{% url 'blog:category' Category.pk %}">{{ Category }}</a>
             {% endfor %}
             {% if user.is_authenticated %}
-                <a class="blog-nav-item" style="float:right">{{ user }}</a>
+                <a class="blog-nav-item blog-nav-user">{{ user }}</a>
             {% else %}
-                <a class="blog-nav-item"  href="{% url 'blog:user_login' %}" style="float:right;">登录</a>
+                <a class="blog-nav-item"  href="{% url 'blog:user_login' %}">登录</a>
             {% endif %}
-            <form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}" style="position: absolute;right: 10%;height: 24px;top: 16px">
+            <form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
                 <input type="search" name="q" placeholder="搜索" required>
                 <button type="submit"><span class="ion-ios-search-strong">搜索</span></button>
             </form>
@@ -42,12 +42,12 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-2">
-            <h3 class="widget-title" style="text-align: center">文章目录</h3>
+            <h3 class="widget-title">文章目录</h3>
             <div class="widget widget-content">
                 {% block toc %}
                     {% get_toc as tocs %}
                     {% for toc in tocs %}
-                        <ul style="list-style: none">
+                        <ul>
                             <li><a href="{% url 'blog:post' toc.pk %}">{{ toc.blog_title }}</a></li>
                         </ul>
                     {% endfor %}
