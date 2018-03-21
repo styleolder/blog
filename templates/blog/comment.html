@@ -12,7 +12,7 @@
         </span>
         <p class="post-comment-content">{{ node.text|safe }}</p>
         <p class="post-comment-date">{{ node.created_time |timesince }}前<span class="post-comment-rel">
-            <a href="{% url 'comments:Post_Comment' node.id %}" id="{{ node.id }}">
+            <a href="{% url 'comments:sub_comment' node.id %}">
                 <i class="fa fa-commenting-o"> 回复</i>
             </a></span></p>
     </div>

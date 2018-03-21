@@ -2,5 +2,6 @@
 from __future__ import unicode_literals
 # Create your views here.
 
-def Post_Comment(request):
+def sub_comment(request):
     pass
+
