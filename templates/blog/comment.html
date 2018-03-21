@@ -3,9 +3,18 @@
         <img src="/upload/{{ node.name.user_icon }}">
     </div>
     <div class="post-comment-right">
-        <span><a href="#">{{ node.name }}</a></span>
-                        <p class="post-comment-title"><a href="#">{{ node.text|safe }}</a></p>
-        <span class="post-comment-title"><a href="#">{{ node.created_time }}</a></span>
+        <span class="post-comment-title">
+                {% if node.parent %}
+                    {{ node.name }} <i class="fa fa-share"></i>  {{ node.parent.name }}
+                {% else %}
+                    {{ node.name }}
+                {% endif %}
+        </span>
+        <p class="post-comment-content">{{ node.text|safe }}</p>
+        <p class="post-comment-date">{{ node.created_time |timesince }}前<span class="post-comment-rel">
+            <a href="{% url 'comments:Post_Comment' node.id %}" id="{{ node.id }}">
+                <i class="fa fa-commenting-o"> 回复</i>
+            </a></span></p>
     </div>
 </div>
-<hr>
+<hr class="hr-line">

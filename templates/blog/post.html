@@ -10,7 +10,7 @@
                 href="{% url 'blog:user' blogs.author.pk %}">{{ blogs.author }}</a></p>
 
         <p class="blog-post-content">{{ blogs.blog_content|safe }}</p>
-        <div class="top-gap clearfix" style="margin: 20px">
+        <div class="top-gap clearfix">
             {% if previous_post %}
                 <a href="{{ previous_post.get_absolute_url }}">
                     <i class="fa fa-angle-double-left" aria-hidden="true"></i>
@@ -18,13 +18,12 @@
                 </a>
             {% endif %}
             {% if next_post %}
-                <a class="float-right" href="{{ next_post.get_absolute_url }}" style="float: right;margin-right: 20px">
+                <a class="float-right" href="{{ next_post.get_absolute_url }}">
                     {{ next_post }}
                     <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                 </a>
             {% endif %}
         </div>
-        <hr>
     </div>
     <h4>评论专区</h4>
     <form action="#" hidden="">
@@ -87,7 +86,11 @@
                 path: "{% static 'editor/images/emojis/' %}",
                 ext: ".png"
             };
-            $("body").blur();
+        });
+    </script>
+    <script type="text/javascript">
+       $(document).ready(function () {
+                $(".hr-line").eq(-1).remove();
         });
     </script>
 {% endblock %}

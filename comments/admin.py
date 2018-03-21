@@ -13,7 +13,6 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'name',
-        'text',
         'created_time',
         'parent',
     )

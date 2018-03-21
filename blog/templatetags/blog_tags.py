@@ -5,6 +5,7 @@ from django.utils.safestring import mark_safe
 from mptt.templatetags.mptt_tags import cache_tree_children
 from django.utils.translation import ugettext as _
 register = template.Library()
+
 @register.filter(name='markdown')
 def markdown_format(text):
     return mark_safe(markdown.markdown(text))
