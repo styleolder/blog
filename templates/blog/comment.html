@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load blog_tags %}
 <div class="post-comment">
     <div class="post-comment-left">
         <img src="/upload/{{ node.name.user_icon }}">
@@ -12,7 +13,7 @@
                 {% endif %}
         </span>
 
-        <p class="post-comment-content">{{ node.text|safe }}</p>
+        <p class="post-comment-content">{{ node.text|safe|markdown }}</p>
 
         <p class="post-comment-date">{{ node.created_time |timesince }}前
             <span class="post-comment-rel">
