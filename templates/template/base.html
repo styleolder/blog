@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
     <link rel="stylesheet" href="{% static 'editor/css/editormd.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/highlights/default.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layui/layui.css' %}">
     <link href="{% static 'css/blog/blog.css' %}" rel="stylesheet"/>
 </head>
 <!-- head_end -->
@@ -21,7 +22,7 @@
     <div class="container">
         <nav class="blog-nav">
             {% get_Category as Categorys %}
-            <a class="blog-nav-item navbar-left" href="/blog">Home</a>
+            <a class="blog-nav-item navbar-left active" href="/blog">Home</a>
             {% for Category in Categorys %}
                 <a class="blog-nav-item" href="{% url 'blog:category' Category.pk %}">{{ Category }}</a>
             {% endfor %}

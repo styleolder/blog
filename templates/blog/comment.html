@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <div class="post-comment">
     <div class="post-comment-left">
         <img src="/upload/{{ node.name.user_icon }}">
@@ -10,11 +11,17 @@
                     {{ node.name }}
                 {% endif %}
         </span>
+
         <p class="post-comment-content">{{ node.text|safe }}</p>
-        <p class="post-comment-date">{{ node.created_time |timesince }}前<span class="post-comment-rel">
-            <a href="{% url 'comments:sub_comment' node.id %}">
-                <i class="fa fa-commenting-o"> 回复</i>
-            </a></span></p>
+
+        <p class="post-comment-date">{{ node.created_time |timesince }}前
+            <span class="post-comment-rel">
+                <a href="javascript:;" id="comment-{{ node.id }}">
+                    <i class="fa fa-commenting-o"> 回复</i>
+                </a>
+            </span>
+        </p>
     </div>
+{% include 'blog/comment_edit.html' %}
 </div>
 <hr class="hr-line">

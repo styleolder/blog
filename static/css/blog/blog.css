@@ -163,17 +163,16 @@ span.highlighted {
     width: 100%;
     float: left;
     margin-top: 10px;
-    padding-bottom: 14px;
 }
 .post-comment-content {
-    margin-top: 2px;
-    margin-bottom: 0px;
+    margin-top: 8px;
 }
 .post-comment-date {
-    margin-bottom: 4px;
     line-height: 12px;
     height: 14px;
     font-size: 10px;
+    margin-top:8px ;
+    margin-bottom: 10px;
 }
 .post-comment-rel{
     margin-left: 10px;
@@ -192,4 +191,9 @@ span.highlighted {
 .blog-nav-item.blog-nav-user {
     float: right;
     margin-right: 40px;
+}
+.comment-rel-form {
+    display: none;
+    float:left;
+    width: 100%;
 }

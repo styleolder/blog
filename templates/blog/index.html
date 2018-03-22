@@ -31,3 +31,15 @@
         </div>
     {% endif %}
 {% endblock %}
+{% block footerscript %}
+    <script type="application/javascript">
+        $(document).ready(function () {
+            $(".blog-nav-item").each(function () {
+                if ($(this).attr("href") == window.location.pathname) {
+                    $(this).siblings().removeClass('active');
+                    $(this).addClass("active");
+                }
+            });
+        })
+    </script>
+{% endblock %}

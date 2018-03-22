@@ -1,0 +1,19 @@
+{% if user.is_authenticated %}
+    <form action="{% url 'comments:sub_comment' node.id %}" class="comment-rel-form">
+        <div class="comment-rel-edit" id="my-edit">
+            <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc"
+                      style="display:none;"></textarea>
+            <!-- 注意：name属性的值-->
+            <textarea id="my-editormd-html-code" name="my-editormd-html-code" style="display:none;"></textarea>
+        </div>
+        <input type="submit" value="提交" class="btn">
+    </form>
+{% else %}
+<div class="comment-rel-form">
+    <div id="myAlert" class="alert alert-warning">
+	<a href="#" class="close" data-dismiss="alert">&times;</a>
+	<strong>&nbsp;警告&nbsp;</strong>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="" style="color: red">请先登录,才能发表评论</a></span>
+</div>
+</div>
+{% endif %}
