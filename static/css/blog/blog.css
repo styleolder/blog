@@ -131,10 +131,16 @@ span.highlighted {
     padding-top: 5px;
 }
 .comment-list-chilren ul {
-    padding-left: 0px;
+    padding-left: 0;
 }
 .comment-list-ul {
-    padding: 0px;
+    padding: 0;
+    line-height: 1.2em;
+    font-size: 20px;
+}
+.comment-children-ul{
+    padding-left: 60px;
+    width: 100%;
 }
 .comment-list-li {
     padding-top: 10px;
@@ -143,9 +149,10 @@ span.highlighted {
     width: 48px;
     height: 48px;
     border-radius: 4px;
+    border: 1px solid #CCCCCC;
 }
 .hr-line{
-    border: 1px solid #e0e0e0;
+    border: 0.5px solid #e0e0e0;
     margin:0;
 }
 .post-comment-left {
@@ -153,7 +160,7 @@ span.highlighted {
     width: 58px;
 }
 .post-comment-right{
-    width: 92%;
+    width: auto;
     height: auto;
     float: left;
     position: relative;
@@ -164,15 +171,19 @@ span.highlighted {
     float: left;
     margin-top: 10px;
 }
+.post-comment-title {
+    font-size: 14px;
+    line-height: 1.2em;
+}
 .post-comment-content {
-    margin-top: 8px;
+    margin-top: 22px;
 }
 .post-comment-date {
     line-height: 12px;
     height: 14px;
-    font-size: 10px;
+    font-size: 12px;
     margin-top:8px ;
-    margin-bottom: 10px;
+    margin-bottom: 18px;
 }
 .post-comment-rel{
     margin-left: 10px;
@@ -190,10 +201,16 @@ span.highlighted {
  }
 .blog-nav-item.blog-nav-user {
     float: right;
-    margin-right: 40px;
+    margin-right: 120px;
 }
 .comment-rel-form {
     display: none;
     float:left;
     width: 100%;
+}
+.cancel-comment{
+    float: left;
+}
+.submit-comment {
+    float: right;
 }

@@ -20,7 +20,7 @@ class Comment(MPTTModel):
         verbose_name_plural = verbose_name
 
     class MPTTMeta:
-        order_insertion_by = ['-created_time']
+        order_insertion_by = ['created_time']
 
     def __str__(self):
         return str(self.pk)

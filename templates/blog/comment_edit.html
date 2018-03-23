@@ -1,12 +1,15 @@
 {% if user.is_authenticated %}
-    <form action="{% url 'comments:sub_comment' node.id %}" class="comment-rel-form">
+    <form action="{% url 'comments:reply_comment' node.id %}" class="comment-rel-form" method="POST">
+        {% csrf_token %}
         <div class="comment-rel-edit" id="my-edit">
             <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc"
                       style="display:none;"></textarea>
             <!-- 注意：name属性的值-->
             <textarea id="my-editormd-html-code" name="my-editormd-html-code" style="display:none;"></textarea>
+            <input type="hidden" name="next" value="{{ request.path }}#comment-{{ node.id }}" />
         </div>
-        <input type="submit" value="提交" class="btn">
+        <input type="button" value="取消" class="btn btn-info cancel-comment">
+        <input type="submit" value="提交" class="btn btn-success submit-comment">
     </form>
 {% else %}
 <div class="comment-rel-form">

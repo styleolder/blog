@@ -32,7 +32,7 @@
             <li class="comment-list-li">
                 {% include 'blog/comment.html' with comment=node counter=revcounter level=node.level %}
                 {% if not node.is_leaf_node %}
-                    <ul>
+                    <ul class="comment-children-ul">
                         {% include 'blog/comment_children.html' %}
                     </ul>
                 {% endif %}
@@ -72,7 +72,8 @@
                     dialogDraggable: false,//设置弹出层对话框不可拖动，全局通用，默认为true
                     dialogMaskOpacity: 0.4, //设置透明遮罩层的透明度，全局通用，默认值为0.1
                     dialogMaskBgColor: "#000",//设置透明遮罩层的背景颜色，全局通用，默认为#fff
-                    toolbarIcons: "full"
+                    toolbarIcons: "simple"
+{#                    toolbarIcons: "full"#}
                 });
                 editormd.emoji = {
                     path: "{% static 'editor/images/emojis/' %}",
@@ -81,12 +82,27 @@
     }
         $(document).ready(function () {
             $(".hr-line").eq(-1).remove();
-            $(".post-comment-rel").click(function () {
+            $(".comment-reply-btn").click(function () {
                 $(".comment-rel-edit").removeAttr("id");
                 $(".comment-rel-form").css("display", "none");
                 $(this).parentsUntil(".post-comment").siblings(".comment-rel-form").children(".comment-rel-edit").attr("id","my-edit");
                 $(this).parentsUntil(".post-comment").siblings(".comment-rel-form").css("display", "block");
                 edit_md()
+            });
+            $(".cancel-comment").click(function () {
+                event.stopPropagation();
+                $(this).parent().css("display", "none");
+            });
+            $(".comment-del-btn").click(function () {
+                event.stopPropagation();
+                alert("点击我");
+                $.ajax({
+                    type: 'get',
+                    url: '/comment/remove/62',
+                    success: function(){
+                        $(this).parentsUntil(".post-comment").css("display:none");
+                    }
+                });
             });
         });
     </script>
