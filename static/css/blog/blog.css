@@ -199,10 +199,6 @@ span.highlighted {
      height: 24px;
      top: 16px;
  }
-.blog-nav-item.blog-nav-user {
-    float: right;
-    margin-right: 120px;
-}
 .comment-rel-form {
     display: none;
     float:left;
@@ -213,4 +209,11 @@ span.highlighted {
 }
 .submit-comment {
     float: right;
+}
+.blog-nav-user{
+    float: right;
+    margin-right: 60px;
+}
+.blog-nav-item:nth-last-child(2){
+       border: 30px;
 }

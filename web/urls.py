@@ -22,6 +22,7 @@ from blog.feeds import AllPostsRssFeed
 from django.contrib.sitemaps.views import sitemap
 from blog.models import blog
 from django.contrib.sitemaps import GenericSitemap
+import xadmin
 
 info_dict = {
     'queryset': blog.objects.all(),
@@ -31,10 +32,12 @@ info_dict = {
 urlpatterns = [
     url(r'^todolist/', include('todolist.urls', namespace='todolist')),
     url(r'^blog/', include('blog.urls', namespace='blog')),
-    url(r'^admin/', admin.site.urls, name='index'),
+    url(r'^admin/', xadmin.site.urls),
+    url(r'^xadmin/', xadmin.site.urls),
     url(r'ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^upload/(?P<path>.*)$', static.serve, {'document_root': settings.MEDIA_ROOT, }),
     url(r'^admin/upload/(?P<dir_name>[^/]+)$', upload_image, name='upload_image'),
+    # url(r'^xadmin/upload/(?P<dir_name>[^/]+)$', upload_image, name='upload_image'),
     url(r'^all/rss/$', AllPostsRssFeed(), name='rss'),
     url(r'^search/', include('haystack.urls')),
     url(r'^comment/', include('comments.urls'), name='comment'),

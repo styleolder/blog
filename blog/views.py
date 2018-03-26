@@ -117,21 +117,17 @@ def login(request):
     if request.method == 'POST':
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
+        print username
+        print password
         user = auth.authenticate(username=username, password=password)
         if user is not None and user.is_active:
             auth.login(request, user)
-            return HttpResponseRedirect('/blog')
-    return render(request, 'blog/index.html')
+        return HttpResponseRedirect('/blog')
+    if request.method == 'GET':
+        return render(request, 'blog/login.html')
 
 
-@login_required(login_url="/blog")
+@login_required(login_url="/blog/login")
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/blog')
-
-
-def user_login(request):
-    if request.method == 'GET':
-        return render(request, 'blog/login.html')
-    else:
-        return HttpResponseRedirect('/blog')

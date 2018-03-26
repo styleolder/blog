@@ -1,0 +1,56 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登录页面</title>
+    <link href="{% static 'css/blog/login.css' %}" rel='stylesheet' type='text/css'/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords"
+          content="App Sign in Form,Login Forms,Sign up Forms,Registration Forms,News latter Forms,Elements"/>
+    <script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!--webfonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700,800'
+          rel='stylesheet' type='text/css'>
+</head>
+<body>
+<h1>App Sign In Form</h1>
+
+<div class="app-cam">
+    <div class="cam"><img src="{% static 'images/cam.png' %}" class="img-responsive" alt=""/></div>
+    <form action="{% url 'blog:login' %}" method="POST">
+        {% csrf_token %}
+        <input type="text"  name="username" placeholder="用户名"/>
+        <input type="password"  name="password" placeholder="密码"/>
+        <div class="submit"><input type="submit" onclick="myFunction()" value="Sign in"></div>
+        <div class="clear"></div>
+        <div class="buttons">
+            <ul>
+                <li><a href="#" class="hvr-sweep-to-right">Sign in with 微信</a></li>
+                <li><a href="#" class="hvr-sweep-to-left">Sign in with QQ</a></li>
+                <div class="clear"></div>
+            </ul>
+        </div>
+        <div class="new">
+            <p><a href="#">Forgot Password ?</a></p>
+
+            <p class="sign">New here ?<a href="#"> Sign Up</a></p>
+
+            <div class="clear"></div>
+        </div>
+    </form>
+</div>
+<!--start-copyright-->
+<div class="copy-right">
+    <p>Copyright &copy; 2018 All rights Reserved | Template by &nbsp;<a href="http://127.0.0.1/blog">请问得多少的blog</a></p>
+</div>
+<!--//end-copyright-->
+</body>
+</html>

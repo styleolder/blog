@@ -26,9 +26,14 @@
                 <a class="blog-nav-item" href="{% url 'blog:category' Category.pk %}">{{ Category }}</a>
             {% endfor %}
             {% if user.is_authenticated %}
-                <a class="blog-nav-item blog-nav-user">{{ user }}</a>
+                <span class="blog-nav-user">
+                    <a class="blog-nav-item">{{ user }}</a>
+                    <a class="blog-nav-item"  href="{% url 'blog:logout' %}">登出</a>
+                </span>
             {% else %}
-                <a class="blog-nav-item"  href="{% url 'blog:user_login' %}">登录</a>
+                <span  class="blog-nav-user">
+                    <a class="blog-nav-item blog-nav-user"  href="{% url 'blog:login' %}">登录</a>
+                </span>
             {% endif %}
             <form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
                 <input type="search" name="q" placeholder="搜索" required>

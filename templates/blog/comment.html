@@ -18,16 +18,16 @@
         <p class="post-comment-date">{{ node.created_time |timesince }}前
             <span class="post-comment-rel">
                 <a href="javascript:;" class="comment-reply-btn">
-                    <i class="fa fa-commenting-o"> 回复</i>
+                    <i class="fa fa-commenting-o">&nbsp;回复&nbsp;&nbsp;&nbsp;&nbsp;</i>
                 </a>
                 {% ifequal request.user node.name %}
-                <a href="javascript:;" class="comment-del-btn">
-                    <i class="fa fa-trash-o" aria-hidden="true"> 删除</i>
-                </a>
+                    <a href="javascript:;" class="{% url 'comments:remove_comment' node.id %}">
+                        <i class="fa fa-trash-o comment-del-btn" aria-hidden="true">&nbsp;删除</i>
+                    </a>
                 {% endifequal %}
-            </span>
+           </span>
         </p>
     </div>
-{% include 'blog/comment_edit.html' %}
+    {% include 'blog/comment_edit.html' %}
 </div>
 <hr class="hr-line">

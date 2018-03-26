@@ -14,9 +14,9 @@
 {% else %}
 <div class="comment-rel-form">
     <div id="myAlert" class="alert alert-warning">
-	<a href="#" class="close" data-dismiss="alert">&times;</a>
-	<strong>&nbsp;警告&nbsp;</strong>
-    <span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="" style="color: red">请先登录,才能发表评论</a></span>
-</div>
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>&nbsp;抱歉&nbsp;</strong>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'blog:login' %}" style="color: red">只有登录以后,才能发表评论</a></span>
+    </div>
 </div>
 {% endif %}

@@ -95,12 +95,17 @@
             });
             $(".comment-del-btn").click(function () {
                 event.stopPropagation();
-                alert("点击我");
                 $.ajax({
-                    type: 'get',
-                    url: '/comment/remove/62',
-                    success: function(){
-                        $(this).parentsUntil(".post-comment").css("display:none");
+                    type:"get",
+                    url: $(this).parent().attr("class"),
+                    'dataType':'json',
+                    success: function(data){
+                        if(data.res =="success") {
+                           $(this).parentsUntil(".post-comment").css("display", "none");
+                        }
+                        else{
+                            window.location.reload();
+                        }
                     }
                 });
             });

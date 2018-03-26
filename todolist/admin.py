@@ -2,9 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-
 from .models import TodoList, User
-
 
 class TodoListAdmin(admin.ModelAdmin):
     fields = ('todolist_state', 'todolist_text','pub_date','dodolist_flag')

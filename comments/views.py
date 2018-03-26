@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from django.contrib.auth.decorators import login_required
 from comments.models import Comment
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
@@ -30,12 +30,12 @@ def reply_comment(request, pk):
     return HttpResponseRedirect('/blog')
 
 @login_required(login_url="/blog/user_login")
+@csrf_exempt
 def remove_comment(request, pk):
-    if request.method == 'GET':
-        print int(pk)
-        if pk is not None:
-            try:
-                Comment.objects.get(id=int(pk)).delete()
-            except Exception, e:
-                print e
-    return "success"
+    print request.path
+    try:
+        Comment.objects.get(id=pk).delete()
+        return JsonResponse({'res': 1})
+    except Exception, e:
+        print e
+        return JsonResponse({'res': 0})

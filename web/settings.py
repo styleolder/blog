@@ -49,7 +49,10 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'rest_framework',
-    'mptt'
+    'mptt',
+    'xadmin',
+    'crispy_forms',
+    'reversion',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
