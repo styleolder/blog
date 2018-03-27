@@ -14,7 +14,6 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-from django.contrib import admin
 from django.views import static
 from django.conf import settings
 from upload_image import upload_image
@@ -36,8 +35,8 @@ urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url(r'ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^upload/(?P<path>.*)$', static.serve, {'document_root': settings.MEDIA_ROOT, }),
-    url(r'^admin/upload/(?P<dir_name>[^/]+)$', upload_image, name='upload_image'),
-    # url(r'^xadmin/upload/(?P<dir_name>[^/]+)$', upload_image, name='upload_image'),
+    # url(r'^admin/upload/(?P<dir_name>[^/]+)$', upload_image, name='upload_image'),
+    url(r'^xadmin/upload/(?P<dir_name>[^/]+)$', upload_image, name='upload_image'),
     url(r'^all/rss/$', AllPostsRssFeed(), name='rss'),
     url(r'^search/', include('haystack.urls')),
     url(r'^comment/', include('comments.urls'), name='comment'),

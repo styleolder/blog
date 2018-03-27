@@ -214,6 +214,6 @@ span.highlighted {
     float: right;
     margin-right: 60px;
 }
-.blog-nav-item:nth-last-child(2){
-       border: 30px;
+.blog-nav-user .blog-nav-item:nth-last-child(2){
+      margin-right: 30px;
 }
