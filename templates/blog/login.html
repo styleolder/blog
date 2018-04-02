@@ -8,17 +8,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords"
           content="App Sign in Form,Login Forms,Sign up Forms,Registration Forms,News latter Forms,Elements"/>
-    <script type="application/x-javascript">
-        addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-        }, false);
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-    </script>
-    <!--webfonts-->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700,800'
-          rel='stylesheet' type='text/css'>
 </head>
 <body>
 <h1>App Sign In Form</h1>
@@ -29,7 +18,7 @@
         {% csrf_token %}
         <input type="text"  name="username" placeholder="用户名"/>
         <input type="password"  name="password" placeholder="密码"/>
-        <div class="submit"><input type="submit" onclick="myFunction()" value="Sign in"></div>
+        <div class="submit"><input type="submit" value="Sign in"></div>
         <div class="clear"></div>
         <div class="buttons">
             <ul>

@@ -1,5 +1,5 @@
 import xadmin
-from blog.models import blog
+from blog.models import blog,Tag,Category
 
 class BlogAdmin(object):
     fields = ['blog_title', 'blog_content', 'category', 'tags', 'author', 'created_time', 'excerpt']
@@ -17,4 +17,17 @@ class BlogAdmin(object):
               '/static/js/kindeditor/lang/zh-CN.js',
               '/static/js/kindeditor/config.js')
 
+
+class TagAamin(object):
+    fields = ['Tag_name']
+    search_fields = ['Tag_name']
+    list_filter = ['Tag_name']
+
+class CategoryAamin(object):
+    fields = ['Category_name']
+    search_fields = ['Category_name']
+    list_filter = ['Category_name']
+
 xadmin.site.register(blog, BlogAdmin)
+xadmin.site.register(Tag, TagAamin)
+xadmin.site.register(Category, CategoryAamin)

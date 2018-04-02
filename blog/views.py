@@ -11,6 +11,10 @@ from django.views.generic import ListView, DetailView
 from todolist.models import User
 from markdown.extensions.toc import TocExtension
 from django.utils.text import slugify
+from django import forms
+from django.contrib import messages
+from captcha.fields import CaptchaField
+
 
 class IndexView(ListView):
     model = blog
@@ -113,16 +117,23 @@ class UserView(ListView):
         return super(UserView, self).get_queryset().filter(author=user_id)
 
 
+class AddForm(forms.Form):
+    username = forms.CharField(max_length=10)
+    password = forms.CharField()
+
 def login(request):
     if request.method == 'POST':
-        username = request.POST.get('username', '')
-        password = request.POST.get('password', '')
-        print username
-        print password
-        user = auth.authenticate(username=username, password=password)
-        if user is not None and user.is_active:
-            auth.login(request, user)
-        return HttpResponseRedirect('/blog')
+        form = AddForm(request.POST)
+        if form.is_valid():
+            #username = request.POST.get('username', '')
+            #password = request.POST.get('password', '')
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+            user = auth.authenticate(username=username, password=password)
+            if user is not None and user.is_active:
+                auth.login(request, user)
+                return HttpResponseRedirect('/blog')
+        return render(request, 'blog/login.html')
     if request.method == 'GET':
         return render(request, 'blog/login.html')
 

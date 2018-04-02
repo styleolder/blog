@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'reversion',
+    'captcha',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

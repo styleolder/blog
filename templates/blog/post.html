@@ -81,6 +81,19 @@
                 };
     }
         $(document).ready(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 300) {
+                    $('.back-to-top').fadeIn(700);//淡入
+                } else {
+                    $('.back-to-top').fadeOut(700);//淡入
+                }
+            });
+            // 点击按钮，向上动画滚动
+            $('.back-to-top').click(function (event) {
+                event.preventDefault();
+                //利用animate实现缓慢滑动回顶部的功能
+                $('html,body').animate({scrollTop: 0}, 500);
+            });
             $(".hr-line").eq(-1).remove();
             $(".comment-reply-btn").click(function () {
                 $(".comment-rel-edit").removeAttr("id");

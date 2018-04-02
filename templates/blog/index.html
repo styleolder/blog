@@ -6,7 +6,7 @@
                 <h4 class="blog-post-title"><a href="{{ blog.get_absolute_url }}">{{ blog.blog_title }}</a></h4>
 
                 <p class="blog-post-meta">{{ blog.created_time|date:"Y-m-d H:i:s" }}<a
-                        href="/blog/user/{{ blog.author }}">{{ blog.author }}</a></p>
+                        href="/blog/user/{{ blog.author.id }}">{{ blog.author }}</a></p>
 
                 <p class="blog-post-content">{{ blog.excerpt }}...</p>
             </div>
