@@ -23,20 +23,18 @@
   
   
 -----------------------------------------------   
-<br/>
-<br/>
+  
 <h4>如何运行</h4>  
-<br/>
-<br/>
+  
 ``` shell  
     git clone https://github.com/styleolder/blog.git  
-
+  
     python manage.py runserver  
-```
+```  
 
-> 访问http://127.0.0.1:8000/blog  
+>访问http://127.0.0.1:8000/blog  
 
-> 默认用户:admin/admin123456  
+>默认用户:admin/admin123456  
   
   
 ----------------------------------------------------  
