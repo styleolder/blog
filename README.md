@@ -28,19 +28,25 @@
 
 >访问http://127.0.0.1:8000/blog
 
->默认登录用户为:admin/admin123456
+>默认用户:admin/admin123456
 
 
 ====================================
+
+
 <h4>页面展示
-![](./showtime/01.png '首页')
-![](./showtime/02.png '登录')
-![](./showtime/03.png '评论')
-![](./showtime/04.png '发表评论与删除')
-![](./showtime/05.png '后台')
 
 
+![首页](https://github.com/styleolder/blog/tree/master/static/images/1.jpg)
+![登录](https://github.com/styleolder/blog/tree/master/static/images/2.jpg)
+![评论](https://github.com/styleolder/blog/tree/master/static/images/3.jpg)
+![发表评论与删除](https://github.com/styleolder/blog/tree/master/static/images/4.jpg)
+![后台](https://github.com/styleolder/blog/tree/master/static/images/5.jpg)
+
+
+===================================
 <h4>后续添加功能
+
 >文章点击量统计
 
 >用户登录与注册页面重构
@@ -53,8 +59,18 @@
 
 >网站改版，前端替换为VUE UI
 
+
+===================================
+
+
 <h4>QA
- - 欢迎反馈问题，请联系QQ:410178050
+
+- 欢迎反馈问题
+
+>>请联系QQ:410178050
+
+
+===================================
 
 
 [参考资料-Bootstarp中文网站](http://www.bootcss.com)
