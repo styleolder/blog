@@ -45,14 +45,21 @@
 > - 首页  
 
 ![首页](https://github.com/styleolder/blog/raw/master/static/images/1.jpg)  
+  
+------------------------------------------------
+
  
 > - 评论
 
 ![评论](https://github.com/styleolder/blog/raw/master/static/images/3.jpg)  
+  
+------------------------------------------------
 
 > - 发表评论与删除  
   
 ![发表评论与删除](https://github.com/styleolder/blog/raw/master/static/images/4.jpg)  
+  
+------------------------------------------------
 
 > - 后台  
 
@@ -82,11 +89,9 @@
 <h4>QA  
 
 
-- 欢迎反馈问题  
-
-
+>欢迎反馈问题  
 > 
->>请联系QQ:410178050  
+>请联系QQ:410178050  
 >  
   
   
