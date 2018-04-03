@@ -39,22 +39,22 @@
 <h4>页面展示  
    
    
->首页  
+> - 首页  
   
 ![首页](https://github.com/styleolder/blog/raw/master/static/images/1.jpg)  
   
   
->评论
+> - 评论
   
 ![评论](https://github.com/styleolder/blog/raw/master/static/images/3.jpg)  
   
   
->发表评论与删除  
+> - 发表评论与删除  
   
 ![发表评论与删除](https://github.com/styleolder/blog/raw/master/static/images/4.jpg)  
   
   
->后台  
+> - 后台  
   
 ![后台](https://github.com/styleolder/blog/raw/master/static/images/5.jpg)  
   
@@ -63,17 +63,18 @@
   
 <h4>后续添加功能  
   
->文章点击量统计  
+  
+> - 文章点击量统计  
 
->用户登录与注册页面重构  
+> - 用户登录与注册页面重构  
 
->用户注册邮箱确认  
+> - 用户注册邮箱确认  
 
->微信扫码登录  
+> - 微信扫码登录  
 
->广告栏目预留  
+> - 广告栏目预留  
 
->网站改版，前端替换为VUE UI  
+> - 网站改版，前端替换为VUE UI  
   
   
 -------------------    
@@ -84,7 +85,7 @@
    
 - 欢迎反馈问题  
   
->>
+>>  
 >>请联系QQ:410178050  
 >>  
    
