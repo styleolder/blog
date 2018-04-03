@@ -42,23 +42,31 @@
 - 首页
 ![首页](https://github.com/styleolder/blog/raw/master/static/images/1.jpg)
 
+=================
+
 
 - 登录
 ![登录](https://github.com/styleolder/blog/raw/master/static/images/2.jpg)
+
+==================
 
 
 - 评论
 ![评论](https://github.com/styleolder/blog/raw/master/static/images/3.jpg)
 
 
+=================
+
+
 - 发表评论与删除
 ![发表评论与删除](https://github.com/styleolder/blog/raw/master/static/images/4.jpg)
 
 
+====================
+
+
 - 后台
 ![后台](https://github.com/styleolder/blog/raw/master/static/images/5.jpg)
-
-
 
 
 ===================================
