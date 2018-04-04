@@ -11,7 +11,7 @@
 
         <p class="blog-post-content">{{ blogs.blog_content|safe }}</p>
 
-        <div class="clearfix top-gap">
+        <div class="clearfix">
             {% if previous_post %}
                 <a class="float-left" href="{{ previous_post.get_absolute_url }}">
                     <i class="fa fa-angle-double-left" aria-hidden="true"></i>
@@ -29,27 +29,41 @@
     {% if blogs.comment_set.count >= 1 %}
         <h4>评论专区</h4>
         <span class="comment_count">
-    <ul>
-        <li class="comment_count_1">{{ blogs.comment_set.count }}</li>
-        <li class="comment_count_2">条评论</li>
-        <li class="comment_count_3">/</li>
-        <li class="comment_count_4">{{ blogs.participants_count }}</li>
-        <li class="comment_count_5">人参与</li>
-    </ul>
-    </span>
-        {% recursetree blogs.comment_set.all %}
-            <ul class="comment-list-ul">
-                <li class="comment-list-li">
-                    {% include 'blog/comment.html' with comment=node counter=revcounter level=node.level %}
-                    {% if not node.is_leaf_node %}
-                        <ul class="comment-children-ul">
-                            {% include 'blog/comment_children.html' %}
-                        </ul>
-                    {% endif %}
-                </li>
+            <ul>
+                <li class="comment_count_1">{{ blogs.comment_set.count }}</li>
+                <li class="comment_count_2">条评论</li>
+                <li class="comment_count_3">/</li>
+                <li class="comment_count_4">{{ blogs.participants_count }}</li>
+                <li class="comment_count_5">人参与</li>
             </ul>
-        {% endrecursetree %}
+        </span>
     {% endif %}
+    <form action="{% url 'comments:reply_comment' 0 %}" method="POST" class="clearfix">
+        {% csrf_token %}
+        <div class="comment-rel-edit" id="my-edit-default">
+            <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc"
+                      style="display:none;"></textarea>
+            <!-- 注意：name属性的值-->
+            <textarea id="my-editormd-html-code" name="my-editormd-html-code"
+                      style="display:none;"></textarea>
+            <input type="hidden" name="next" value="{{ request.path }}"/>
+            <input type="hidden" name="post" value="{{ blogs.id }}"/>
+        </div>
+        <input type="button" value="取消" class="btn btn-info cancel-comment">
+        <input type="submit" value="提交" class="btn btn-success submit-comment">
+    </form>
+    {% recursetree blogs.comment_set.all %}
+        <ul class="comment-list-ul">
+            <li class="comment-list-li">
+                {% include 'blog/comment.html' with comment=node counter=revcounter level=node.level %}
+                {% if not node.is_leaf_node %}
+                    <ul class="comment-children-ul">
+                        {% include 'blog/comment_children.html' %}
+                    </ul>
+                {% endif %}
+            </li>
+        </ul>
+    {% endrecursetree %}
 {% endblock %}
 {% block toc %}
     {% get_toc as tocs %}
@@ -93,7 +107,33 @@
                 ext: ".png"
             };
         }
+        function edit_md_default() {
+            editormd("my-edit-default", {//注意1：这里的就是上面的DIV的id属性值
+                width: "100%",
+                height: 300,
+                syncScrolling: "single",
+                path: "{% static 'editor/lib/' %}",//注意2：你的路径
+                saveHTMLToTextarea: true,//注意3：这个配置，方便post提交表单
+                taskList: true,
+                emoji: true,
+                tex: true,// 开启科学公式TeX语言支持，默认关闭
+                flowChart: true,//开启流程图支持，默认关闭
+                sequenceDiagram: true,//开启时序/序列图支持，默认关闭,
+                dialogLockScreen: false,//设置弹出层对话框不锁屏，全局通用，默认为true
+                dialogShowMask: false,//设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+                dialogDraggable: false,//设置弹出层对话框不可拖动，全局通用，默认为true
+                dialogMaskOpacity: 0.4, //设置透明遮罩层的透明度，全局通用，默认值为0.1
+                dialogMaskBgColor: "#000",//设置透明遮罩层的背景颜色，全局通用，默认为#fff
+                toolbarIcons: "simple"
+                {#                    toolbarIcons: "full"#}
+            });
+            editormd.emoji = {
+                path: "{% static 'editor/images/emojis/' %}",
+                ext: ".png"
+            };
+        }
         $(document).ready(function () {
+            edit_md_default();
             $(window).scroll(function () {
                 if ($(this).scrollTop() > 300) {
                     $('.back-to-top').fadeIn(700);//淡入

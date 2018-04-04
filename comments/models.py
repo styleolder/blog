@@ -12,7 +12,7 @@ class Comment(MPTTModel):
     name = models.ForeignKey(User)
     text = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
-    parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, default=None)
     post = models.ForeignKey(blog)
 
     class Meta:

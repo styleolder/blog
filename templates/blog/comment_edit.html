@@ -1,7 +1,7 @@
 {% if user.is_authenticated %}
     <form action="{% url 'comments:reply_comment' node.id %}" class="comment-rel-form" method="POST">
         {% csrf_token %}
-        <div class="comment-rel-edit" id="my-edit">
+        <div class="comment-rel-edit">
             <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc"
                       style="display:none;"></textarea>
             <!-- 注意：name属性的值-->
@@ -16,7 +16,7 @@
     <div id="myAlert" class="alert alert-warning">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
         <strong>&nbsp;抱歉&nbsp;</strong>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'blog:login' %}" style="color: red">只有登录以后,才能发表评论</a></span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'blog:login' %}" style="color: red">只有登录以后,才能回复评论</a></span>
     </div>
 </div>
 {% endif %}

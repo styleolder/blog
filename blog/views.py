@@ -130,7 +130,7 @@ def login(request):
             user = auth.authenticate(username=username, password=password)
             if user is not None and user.is_active:
                 auth.login(request, user)
-                return HttpResponseRedirect('/blog')
+            return HttpResponseRedirect('/blog')
         return render(request, 'blog/login.html')
     if request.method == 'GET':
         return render(request, 'blog/login.html')

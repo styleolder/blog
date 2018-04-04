@@ -23,6 +23,12 @@ class GlobalSettings(object):
     site_footer = u"style的博客"
     menu_style = "accordion"
 
+
+class UsertAdmin(object):
+    fields = ('username', 'password', 'email', 'qq', 'last_login', 'user_icon', 'is_active')
+    search_fields = ['qq', 'username']
+    list_display = ('username', 'email', 'qq', 'last_login', 'is_active', 'user_icon', 'is_active')
+
 xadmin.site.register(TodoList, TodoListAdmin)
 xadmin.site.register(views.BaseAdminView,BaseSetting)
 xadmin.site.register(views.CommAdminView, GlobalSettings)

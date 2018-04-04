@@ -22,9 +22,10 @@ class TodoList(models.Model):
 @python_2_unicode_compatible
 class User(AbstractUser):
     username = models.CharField(max_length=200, verbose_name=u'用户名', blank=False, unique=True)
-    qq = models.IntegerField(null=True, verbose_name='QQ', blank=False, unique=True)
+    qq = models.IntegerField(null=True, verbose_name='QQ', blank=True, unique=True)
     email = models.CharField(null=True, max_length=200, verbose_name=u'邮件', blank=False, unique=True)
-    user_icon = models.ImageField(upload_to="images/%Y/%m", default=u"image/default.png", max_length=500)
+    user_icon = models.ImageField(upload_to="images/%Y/%m", default=u"image/default.png", max_length=500, null=True, blank=True, verbose_name=u'用户头像')
+
     class Meta(AbstractUser.Meta):
         verbose_name = u'用户'
         verbose_name_plural = verbose_name
