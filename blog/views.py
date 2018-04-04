@@ -57,7 +57,7 @@ class PostView(DetailView):
         context['post_list'] = post_list
         idx = post_list.index(post)
         try:
-            previous_post = post_list[idx - 1 if idx > 1 else None]
+            previous_post = post_list[idx-1 if idx >= 1 else None]
         except (IndexError, TypeError):
             previous_post = None
 
@@ -125,8 +125,6 @@ def login(request):
     if request.method == 'POST':
         form = AddForm(request.POST)
         if form.is_valid():
-            #username = request.POST.get('username', '')
-            #password = request.POST.get('password', '')
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
             user = auth.authenticate(username=username, password=password)

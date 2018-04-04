@@ -6,9 +6,9 @@ from django.utils import timezone
 from todolist.models import User
 import markdown
 from django.utils.html import strip_tags
-# from ckeditor_uploader.fields import RichTextUploadingField
 from django.urls import reverse
-#支持python2
+
+
 @python_2_unicode_compatible
 class Category(models.Model):
     #设置字段类型为char,最大长度为20。默认显示名称为 分类
@@ -27,6 +27,7 @@ class Category(models.Model):
     def __str__(self):
         return self.Category_name
 
+
 class Tag(models.Model):
 
     Tag_name = models.CharField(max_length=20, verbose_name=u'标签')
@@ -38,6 +39,7 @@ class Tag(models.Model):
     #默认返回值,并且在后台有显示信息
     def __str__(self):
         return self.Tag_name
+
 
 #支持python2
 @python_2_unicode_compatible
@@ -54,7 +56,6 @@ class blog(models.Model):
     #t1=Tag.objects.create(Tag_name="赞助")
     #b=blog.objects.create(blog_content="",blog_title="",tags=t1.....)
     #b.save()
-
     #删
 
 
@@ -103,6 +104,9 @@ class blog(models.Model):
 
     def get_absolute_url(self):
         return reverse('blog:post', kwargs={'pk': self.pk})
+
+    def participants_count(self):
+        return self.comment_set.values_list('name').distinct().count()
 
     def __str__(self):
         return self.blog_title
