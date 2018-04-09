@@ -26,7 +26,7 @@
                     <a class="blog-nav-item" href="{% url 'blog:category' Category.pk %}">{{ Category }}</a>
                 {% endfor %}
             </span>
-            <span class="blog-nav-right">
+            <div class="blog-nav-right">
                 <form role="search" method="GET" action="{% url 'haystack_search' %}" class="nav-right-form">
                     <div class="col-xs-2">
                         <label for="q" class="sr-only">搜索</label>
@@ -47,7 +47,7 @@
                         <a class="blog-nav-item blog-nav-user" href="{% url 'blog:login' %}">登录</a>
                     </span>
                 {% endif %}
-            </span>
+             </div>
     </nav>
 </div>
 <!-- /.container-nav -->

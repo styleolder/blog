@@ -7,9 +7,18 @@
     <div class="post-comment-right">
         <span class="post-comment-title">
                 {% if node.parent %}
-                    {{ node.name }} <i class="fa fa-share"></i>  {{ node.parent.name }}
+                    {% ifequal node.name blogs.author %}
+                        {{ node.name }}<span class="blog-owner">[博主]</span><i class="fa fa-share"></i>
+                        {{ node.parent.name }}
+                    {% else %}
+                        {{ node.name }}<i class="fa fa-share"></i>{{ node.parent.name }}
+                    {% endifequal %}
                 {% else %}
-                    {{ node.name }}
+                    {% ifequal node.name blogs.author %}
+                        {{ node.name }}<span class="blog-owner">[博主]</span>
+                    {% else %}
+                        {{ node.name }}
+                    {% endifequal %}
                 {% endif %}
         </span>
 

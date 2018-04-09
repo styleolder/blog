@@ -11,7 +11,7 @@
 
         <p class="blog-post-content">{{ blogs.blog_content|safe }}</p>
 
-        <div class="clearfix">
+        <div class="clearfix page_step">
             {% if previous_post %}
                 <a class="float-left" href="{{ previous_post.get_absolute_url }}">
                     <i class="fa fa-angle-double-left" aria-hidden="true"></i>
@@ -49,7 +49,6 @@
             <input type="hidden" name="next" value="{{ request.path }}"/>
             <input type="hidden" name="post" value="{{ blogs.id }}"/>
         </div>
-        <input type="button" value="取消" class="btn btn-info cancel-comment">
         <input type="submit" value="提交" class="btn btn-success submit-comment">
     </form>
     {% recursetree blogs.comment_set.all %}

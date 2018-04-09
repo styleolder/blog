@@ -120,6 +120,7 @@ span.highlighted {
     padding: 0;
     line-height: 1.2em;
     font-size: 20px;
+    margin-top: 60px;
 }
 .comment-children-ul{
     padding-left: 60px;
@@ -224,6 +225,8 @@ span.highlighted {
     border-radius: 1.4em;
     width:2.8em;
     height: 2.8em;
+    top: -4px;
+    position: relative;
 }
 .widget-title{
     padding-left: 20px;
@@ -250,6 +253,10 @@ span.highlighted {
 .float-right{
     float: right;
 }
+.page_step {
+    font-size: 18px;
+    margin-top: 20px;
+}
 .top-gap {
     margin-top: 26px;
     font-size: 16px;
@@ -273,4 +280,8 @@ span.highlighted {
 }
 .widget.widget-content a:hover {
     color: #23527c;
+}
+.blog-owner {
+    color: red;
+    margin: 0 4px 0 4px;
 }
