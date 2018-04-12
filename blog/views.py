@@ -12,18 +12,19 @@ from todolist.models import User
 from markdown.extensions.toc import TocExtension
 from django.utils.text import slugify
 from django import forms
-from django.contrib import messages
-from captcha.fields import CaptchaField
+from braces.views import SetHeadlineMixin
 
-
-class IndexView(ListView):
+class IndexView(SetHeadlineMixin, ListView):
     model = blog
     template_name = 'blog/index.html'
     context_object_name = 'blogs'
     paginate_by = 5
 
+    def get_headline(self):
+        return u'首页'
 
-class PostView(DetailView):
+
+class PostView(SetHeadlineMixin, DetailView):
     model = blog
     template_name = 'blog/post.html'
     context_object_name = 'blogs'
@@ -38,6 +39,13 @@ class PostView(DetailView):
         blogs.blog_content = md.convert(blogs.blog_content)
         blogs.toc = md.toc
         return blogs
+
+
+    def get_headline(self):
+        if self.object.category:
+            return '%s_%s' % (self.object.blog_title, self.object.category.Category_name)
+        return '%s' % self.object.blog_title
+
 
     def get_context_data(self, **kwargs):
         context = super(PostView,self).get_context_data(**kwargs)
@@ -84,7 +92,7 @@ class ArchivesView(ListView):
         )
 
 
-class TagsView(ListView):
+class TagsView(SetHeadlineMixin, ListView):
     model = blog
     template_name = 'blog/index.html'
     context_object_name = 'blogs'
@@ -94,8 +102,14 @@ class TagsView(ListView):
         tags = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
         return super(TagsView, self).get_queryset().filter(tags=tags)
 
+    def get_headline(self):
+        tags = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
+        if tags:
+            return '%s' % tags
+        return u'分类'
 
-class CategoryView(ListView):
+
+class CategoryView(SetHeadlineMixin, ListView):
     model = blog
     template_name = 'blog/index.html'
     context_object_name = 'blogs'
@@ -104,6 +118,12 @@ class CategoryView(ListView):
     def get_queryset(self):
         cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
         return super(CategoryView, self).get_queryset().filter(category=cate)
+
+    def get_headline(self):
+        cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
+        if cate:
+            return '%s' % cate
+        return u'分类'
 
 
 class UserView(ListView):
