@@ -14,6 +14,13 @@
     {% else %}
         <div class="blog-post">
             <h4 class="blog-post-title"><a href="/blog">很抱歉没有你需要的信息</a></h4>
+        {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
         </div>
     {% endif %}
     {% if is_paginated %}

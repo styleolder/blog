@@ -13,8 +13,14 @@ from markdown.extensions.toc import TocExtension
 from django.utils.text import slugify
 from django import forms
 from braces.views import SetHeadlineMixin
+from django.db.models import Avg, Max, Min
+from django.db.models import Count
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 
-class IndexView(SetHeadlineMixin, ListView):
+
+class IndexView(SuccessMessageMixin,SetHeadlineMixin, ListView):
     model = blog
     template_name = 'blog/index.html'
     context_object_name = 'blogs'
@@ -25,6 +31,9 @@ class IndexView(SetHeadlineMixin, ListView):
 
 
 class PostView(SetHeadlineMixin, DetailView):
+    #权限检查
+    # permission_required = 'comments.can_open'
+    # login_url = '/blog/login'
     model = blog
     template_name = 'blog/post.html'
     context_object_name = 'blogs'
@@ -38,14 +47,18 @@ class PostView(SetHeadlineMixin, DetailView):
         ])
         blogs.blog_content = md.convert(blogs.blog_content)
         blogs.toc = md.toc
+        print blog.objects.aggregate(Max('id'))
+        print blog.objects.aggregate(Min('id'))
+        print blog.objects.aggregate(Avg('id'))
+        print blog.objects.annotate(Count('tags'))[0].tags__count
+        print blog.objects.annotate(Count('tags'))[0]
+        print blog.objects.annotate(min_id=Count('tags')).filter(min_id__gt=2)
         return blogs
-
 
     def get_headline(self):
         if self.object.category:
             return '%s_%s' % (self.object.blog_title, self.object.category.Category_name)
         return '%s' % self.object.blog_title
-
 
     def get_context_data(self, **kwargs):
         context = super(PostView,self).get_context_data(**kwargs)
@@ -77,6 +90,7 @@ class PostView(SetHeadlineMixin, DetailView):
         context['next_post'] = next_post
 
         return context
+
 
 class ArchivesView(ListView):
     model = blog

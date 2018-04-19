@@ -16,7 +16,7 @@ def markdown_format(text):
 
 @register.simple_tag
 def archives():
-    return blog.objects.dates('created_time', 'month', order='DESC')
+        return blog.objects.dates('created_time', 'month', order='DESC')
 
 @register.simple_tag
 def get_tags():

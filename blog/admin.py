@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.contrib import admin
 from blog.models import Category, Tag, blog
 
+
 #扩展后台管理界面
 class BlogAdmin(admin.ModelAdmin):
     #fields显示admin界面的字段顺序
@@ -31,8 +32,12 @@ class BlogAdmin(admin.ModelAdmin):
               '/static/js/kindeditor/lang/zh-CN.js',
               '/static/js/kindeditor/config.js')
 
+    def make_published(self, request):
+        self.message_user(request, "successfully marked as published.")
+    actions = [make_published]
+
+
 admin.site.register(Category)
 admin.site.register(Tag)
-
 #注册到后台管理界面
 admin.site.register(blog, BlogAdmin)

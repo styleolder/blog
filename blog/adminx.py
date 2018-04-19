@@ -1,6 +1,7 @@
 import xadmin
 from blog.models import blog,Tag,Category
 
+
 class BlogAdmin(object):
     fields = ['blog_title', 'blog_content', 'category', 'tags', 'author', 'created_time', 'excerpt']
     search_fields = ['blog_content', 'blog_title', 'author']

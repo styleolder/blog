@@ -28,6 +28,7 @@ class Category(models.Model):
         return self.Category_name
 
 
+@python_2_unicode_compatible
 class Tag(models.Model):
 
     Tag_name = models.CharField(max_length=20, verbose_name=u'标签')
@@ -74,6 +75,14 @@ class blog(models.Model):
 
     author = models.ForeignKey(User)
 
+    #设置短字符映射
+    #STATUS_CHOICES = (
+    #     ('d', 'Draft'),
+    #     ('p', 'Published'),
+    #     ('w', 'Withdrawn'),
+    # )
+    #status = models.CharField(max_length=1, choices=STATUS_CHOICES)
+
     #设置字段为单选项
     # #SHIRT_SIZES = (
     #     ('S', 'Small'),
@@ -81,7 +90,6 @@ class blog(models.Model):
     #     ('L', 'Large'),
     # )
     # shirt_size = models.CharField(max_length=1, choices=SHIRT_SIZES)
-
     class Meta:
         verbose_name = u'博客信息'
         verbose_name_plural = verbose_name

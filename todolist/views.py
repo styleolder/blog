@@ -54,6 +54,7 @@ def login(request):
         next_page = request.POST.get('next', '/')
         user = auth.authenticate(username=username, password=password)
         if user is not None and user.is_active:
+            print user.user_icon.url
             auth.login(request, user)
             return HttpResponseRedirect(next_page)
     return render(request, 'login.html')

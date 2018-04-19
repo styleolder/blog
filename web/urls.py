@@ -41,7 +41,7 @@ urlpatterns = [
     url(r'^search/', include('haystack.urls')),
     url(r'^comment/', include('comments.urls'), name='comment'),
     url(r'^sitemap\.xml$', sitemap,
-        {'sitemaps': {'blog': GenericSitemap(info_dict, priority=0.6)}},
+        {'sitemaps': {'blog': GenericSitemap(info_dict)}},
         name='django.contrib.sitemaps.views.sitemap'),
     url(r'^api/', include('api.urls'), name='api'),
 ]
