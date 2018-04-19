@@ -25,5 +25,6 @@ class AllPostsRssFeed(Feed):
     def item_description(self, item):
         return item.blog_content
 
+
     def item_link(self, item):
         return reverse('blog:post', args=[item.id])
