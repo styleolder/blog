@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 __author__ = 'admin'
 from rest_framework import serializers
 from blog.models import blog

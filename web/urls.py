@@ -19,9 +19,9 @@ from django.conf import settings
 from upload_image import upload_image
 from blog.feeds import AllPostsRssFeed
 from django.contrib.sitemaps.views import sitemap
-from blog.models import blog
 from django.contrib.sitemaps import GenericSitemap
 import xadmin
+from blog.models import blog
 
 info_dict = {
     'queryset': blog.objects.all(),
@@ -35,7 +35,6 @@ urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url(r'ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^upload/(?P<path>.*)$', static.serve, {'document_root': settings.MEDIA_ROOT, }),
-    # url(r'^admin/upload/(?P<dir_name>[^/]+)$', upload_image, name='upload_image'),
     url(r'^xadmin/upload/(?P<dir_name>[^/]+)$', upload_image, name='upload_image'),
     url(r'^all/rss/$', AllPostsRssFeed(), name='rss'),
     url(r'^search/', include('haystack.urls')),
