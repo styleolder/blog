@@ -1,9 +1,18 @@
 # -*- coding: utf-8 -*-
 __author__ = 'admin'
 from rest_framework import serializers
-from blog.models import blog
+from blog.models import blog, Category
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = "__all__"
+
 
 class BlogSerializer(serializers.ModelSerializer):
+    category = CategorySerializer()
+
     class Meta:
         model = blog
-        fields = ('id', 'blog_title', 'blog_content', 'created_time','modified_time','category','tags','author','excerpt')
+        fields = "__all__"

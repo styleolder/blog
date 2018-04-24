@@ -1,18 +1,19 @@
-from . import views
+# -*- coding: utf-8 -*-
+from api import views
 from django.conf.urls import url, include
 from rest_framework import routers, serializers, viewsets
 from todolist.models import User
-from blog.models import blog
+from rest_framework.documentation import include_docs_urls
 
-
-class BlogSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = blog
-        fields = ('id', 'blog_title', 'blog_content', 'created_time','modified_time','category','tags','author','excerpt')
+        model = User
+        fields = ('id', 'username', 'email', 'is_staff', 'user_icon')
+
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
-    serializer_class = BlogSerializer
+    serializer_class = UserSerializer
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
@@ -22,5 +23,6 @@ router.register(r'users', UserViewSet)
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^blog_list/$', views.BlogList)
+    url(r'^docs/', include_docs_urls(title="blogs")),
+    url(r'^Blog/$', views.BlogList.as_view())
 ]

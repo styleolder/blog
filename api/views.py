@@ -1,24 +1,20 @@
 # -*- coding: utf-8 -*-
-from rest_framework.decorators import api_view
 from blog.models import blog
-from api.serializers import BlogSerializer
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.views import APIView
+from .serializers import BlogSerializer
+from rest_framework import generics
+from rest_framework.pagination import PageNumberPagination
 
 
-class BlogList(APIView):
+class BaseSetPagination(PageNumberPagination):
+    page_size = 5
+    max_page_size = 10
+    page_size_query_param = 'page_size'
+
+
+class BlogList(generics.ListAPIView):
     """
     List all snippets, or create a new snippet.
     """
-    def get(self, request, format=None):
-        snippets = blog.objects.all()
-        serializer = BlogSerializer(snippets, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = BlogSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-
+    queryset = blog.objects.all()
+    serializer_class = BlogSerializer
+    pagination_class = BaseSetPagination
