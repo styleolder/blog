@@ -3,7 +3,8 @@ from blog.models import blog
 from .serializers import BlogSerializer
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
-
+from rest_framework import viewsets
+from rest_framework import mixins
 
 class BaseSetPagination(PageNumberPagination):
     page_size = 5
@@ -11,7 +12,14 @@ class BaseSetPagination(PageNumberPagination):
     page_size_query_param = 'page_size'
 
 
-class BlogList(generics.ListAPIView):
+# class BlogList(generics.ListAPIView):
+#     """
+#     List all snippets, or create a new snippet.
+#     """
+#     queryset = blog.objects.all()
+#     serializer_class = BlogSerializer
+#     pagination_class = BaseSetPagination
+class BlogList(mixins.ListModelMixin,viewsets.GenericViewSet):
     """
     List all snippets, or create a new snippet.
     """

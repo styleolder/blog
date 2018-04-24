@@ -5,6 +5,7 @@ from rest_framework import routers, serializers, viewsets
 from todolist.models import User
 from rest_framework.documentation import include_docs_urls
 
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
@@ -19,10 +20,13 @@ class UserViewSet(viewsets.ModelViewSet):
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 
+blogs_list = views.BlogList.as_view({
+    'get': 'list',
+})
 
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^docs/', include_docs_urls(title="blogs")),
-    url(r'^Blog/$', views.BlogList.as_view())
+    url(r'^Blog/$', blogs_list)
 ]
