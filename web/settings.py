@@ -172,3 +172,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
+AUTHENTICATION_BACKENDS = {
+    'todolist.views.CustomBackend',
+}

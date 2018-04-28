@@ -8,8 +8,11 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 import markdown
 from models import TodoList
+from django.contrib.auth import get_user_model
+from django.db.models import Q
+from django.contrib.auth.backends import ModelBackend
 
-
+User = get_user_model()
 # Create your views here.
 def index(request):
     tasks = TodoList.objects.all().order_by("id")
@@ -67,3 +70,14 @@ def logout(request):
     auth.logout(request)
     next_page = request.GET.get('next', '/')
     return HttpResponseRedirect(next_page)
+
+
+class CustomBackend(ModelBackend):
+    # 自定义用户验证
+    def authenticate(self, username=None, password=None, **kwargs):
+        try:
+            user = User.objects.get(Q(username=username) | Q(qq=username))
+            if user.check_password(password):
+                return user
+        except Exception as e:
+            return None
