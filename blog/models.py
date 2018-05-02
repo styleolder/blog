@@ -133,7 +133,6 @@ class ShortMessage(models.Model):
     ShortMessage_message = models.CharField(max_length=70, blank=True, null=True, verbose_name='短信内容')
     ShortMessage_created_time = models.DateTimeField(default=timezone.now, verbose_name='短信发送时间')
     ShortMessage_type = models.CharField(max_length=1, choices=SHIRT_SIZES)
-    ShortMessage_user = models.ForeignKey(User, default=None)
 
 
     class Meta:

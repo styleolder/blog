@@ -1,5 +1,5 @@
 import xadmin
-from blog.models import blog,Tag,Category
+from blog.models import blog,Tag,Category,ShortMessage
 
 
 class BlogAdmin(object):
@@ -29,6 +29,17 @@ class CategoryAamin(object):
     search_fields = ['Category_name']
     list_filter = ['Category_name']
 
+class ShortMessageAamin(object):
+    fields = ['ShortMessage_mobile','ShortMessage_code','ShortMessage_message','ShortMessage_type','ShortMessage_created_time']
+    list_filter = ['ShortMessage_created_time']
+    search_fields = ['ShortMessage_mobile']
+    list_display = (
+       'ShortMessage_mobile',
+       'ShortMessage_code',
+       'ShortMessage_type',
+       'ShortMessage_created_time'
+    )
 xadmin.site.register(blog, BlogAdmin)
 xadmin.site.register(Tag, TagAamin)
+xadmin.site.register(ShortMessage, ShortMessageAamin)
 xadmin.site.register(Category, CategoryAamin)

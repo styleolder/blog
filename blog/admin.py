@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.contrib import admin
-from blog.models import Category, Tag, blog
-
+from blog.models import Category, Tag, blog, ShortMessage
 
 #扩展后台管理界面
 class BlogAdmin(admin.ModelAdmin):
