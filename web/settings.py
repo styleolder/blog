@@ -37,9 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #'django.contrib.sites',
     'django.contrib.sitemaps',
-    #首次初始化的时候没有组权限，目前还不清楚问题出在哪里
-    # 'django.contrib.sites',
     'haystack',
     ##添加应用
     'todolist',
@@ -172,6 +171,13 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
+
+#自定义用户认证
 AUTHENTICATION_BACKENDS = {
     'todolist.views.CustomBackend',
 }
+
+##云片网发送短信
+api_key = "453276edf2888acc6137bd8df066cf54"
+api_url = "https://sms.yunpian.com/v2/sms/single_send.json"
+re_mobile = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$"

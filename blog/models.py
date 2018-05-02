@@ -119,3 +119,27 @@ class blog(models.Model):
     def __str__(self):
         return self.blog_title
 
+
+SHIRT_SIZES = (
+    ('0', 'Register'),
+    ('1', 'Forgot'),
+    ('2', 'Modify'),
+)
+
+@python_2_unicode_compatible
+class ShortMessage(models.Model):
+    ShortMessage_mobile = models.CharField(max_length=11, blank=False, null=False, verbose_name='电话号码')
+    ShortMessage_code = models.CharField(max_length=6, blank=False, null=False, verbose_name='短信验证码')
+    ShortMessage_message = models.CharField(max_length=70, blank=True, null=True, verbose_name='短信内容')
+    ShortMessage_created_time = models.DateTimeField(default=timezone.now, verbose_name='短信发送时间')
+    ShortMessage_type = models.CharField(max_length=1, choices=SHIRT_SIZES)
+    ShortMessage_user = models.ForeignKey(User, default=None)
+
+
+    class Meta:
+        verbose_name = u'短信'
+        verbose_name_plural = verbose_name
+        ordering = ['-ShortMessage_created_time']
+
+    def __str__(self):
+        return self.ShortMessage_mobile
