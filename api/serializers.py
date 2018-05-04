@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 __author__ = 'admin'
 from rest_framework import serializers
-from blog.models import blog, Category
+from blog.models import blog, Category,Tag
 from todolist.models import User
 from rest_framework import viewsets, status
-from rest_framework.mixins import CreateModelMixin
+from rest_framework.mixins import CreateModelMixin, DestroyModelMixin, ListModelMixin
+from rest_framework.validators import UniqueTogetherValidator
+from rest_framework.permissions import IsAuthenticated
 from blog.models import ShortMessage
 from django.conf import settings
 import re
@@ -12,27 +14,64 @@ from datetime import datetime, timedelta
 from rest_framework.response import Response
 from blog.utils import yunpian
 from random import choice
-
+from api.utils.permissions import IsOwnerOrReadOnly
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
+
+    #获取当前用户
+    # user = serializers.HiddenField(
+    #     default=serializers.CurrentUserDefault()
+    # )
+
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'is_staff', 'user_icon')
+        #数据唯一对应数据绑定
+        # validators = [
+        #     UniqueTogetherValidator(
+        #         queryset=User.objects.all(),
+        #         fields=("username", 'qq'),
+        #         message="已经存在",
+        #     )
+        # ]
+        fields = ("username", 'qq')
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.filter(pk__gt=10)
+class UserViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, viewsets.GenericViewSet):
+    # queryset = User.objects.filter(pk__gt=10)
+    queryset = User.objects.all()
+    #验证用户是否登录
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     serializer_class = UserSerializer
 
+    def get_queryset(self):
+        return User.objects.filter(username=self.request.user)
+
+# class UserSerializer(serializers.HyperlinkedModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = ("username", 'qq')
+#
+# class UserViewSet(viewsets.ModelViewSet):
+#     queryset = User.objects.filter(pk__gt=10)
+#     serializer_class = UserSerializer
 
 class CategorySerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Category
         fields = "__all__"
 
 
+class TagSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Tag
+        fields = ("Tag_name",)
 class BlogSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
+    author = UserSerializer()
+    tags = TagSerializer(many=True)
+
     class Meta:
         model = blog
         fields = "__all__"

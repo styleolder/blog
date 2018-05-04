@@ -36,7 +36,6 @@ class Tag(models.Model):
     class Meta:
         verbose_name = u'标签'
         verbose_name_plural = verbose_name
-
     #默认返回值,并且在后台有显示信息
     def __str__(self):
         return self.Tag_name

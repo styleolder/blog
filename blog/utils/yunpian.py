@@ -5,6 +5,10 @@ import json
 
 class YunPianWang(object):
     def __init__(self, api_key):
+        """
+
+        :rtype : object
+        """
         self.api_key = api_key
 
     def single_send(self, mobile, code):
