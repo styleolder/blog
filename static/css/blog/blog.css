@@ -159,8 +159,8 @@ span.highlighted {
     font-size: 14px;
     line-height: 1.2em;
 }
-.post-comment-content {
-    margin-top: 22px;
+.post-comment-content{
+    margin-top: 1px;
 }
 .post-comment-date {
     line-height: 12px;

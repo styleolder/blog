@@ -15,7 +15,9 @@ def reply_comment(request, pk):
         reply_comment_username = User.objects.get(username="匿名用户")
 
     if request.method == 'POST':
-        reply_comment_content = request.POST.get('my-editormd-html-code', '')
+        reply_comment_content = request.POST.get('my-edit-html-code')
+        if reply_comment_content is None:
+            reply_comment_content = request.POST.get('my-edit-default-html-code')
         reply_comment_next = request.POST.get('next', 'value')
         reply_comment_post = request.POST.get('post', 'value')
         if reply_comment_content is not None:
