@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #'django.contrib.sites',
     'django.contrib.sitemaps',
-    'haystack',
     ##添加应用
     'todolist',
     ##添加应用
@@ -54,6 +53,7 @@ INSTALLED_APPS = [
     'reversion',
     'captcha',
     'rest_framework.authtoken',
+    'haystack',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
