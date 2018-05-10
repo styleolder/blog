@@ -16,6 +16,7 @@ from blog.utils import yunpian
 from random import choice
 from api.utils.permissions import IsOwnerOrReadOnly
 
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     #获取当前用户
@@ -68,9 +69,13 @@ class TagSerializer(serializers.ModelSerializer):
         model = Tag
         fields = ("Tag_name",)
 class BlogSerializer(serializers.ModelSerializer):
+
     category = CategorySerializer()
-    author = UserSerializer()
     tags = TagSerializer(many=True)
+    author = UserSerializer()
+    author = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )
 
     class Meta:
         model = blog
