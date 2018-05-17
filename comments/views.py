@@ -12,7 +12,7 @@ def reply_comment(request, pk):
     if request.user.is_authenticated():
         reply_comment_username = request.user
     else:
-        reply_comment_username = User.objects.get(username="匿名用户")
+        reply_comment_username = User.objects.get(username="老付")
 
     if request.method == 'POST':
         reply_comment_content = request.POST.get('my-edit-html-code')
