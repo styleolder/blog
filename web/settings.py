@@ -180,3 +180,5 @@ AUTHENTICATION_BACKENDS = {
 ##云片网发送短信
 API_KEY = "453276edf2888acc6137bd8df066cf54"
 RE_MOBILE = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$"
+
+##添加git
