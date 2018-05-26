@@ -2,9 +2,11 @@
  * Globals
  */
 
-body {
+
+* {
   font-family: "Microsoft YaHei", Times, serif;
   color: #555;
+  list-style: none;
 }
 /*
  * Override Bootstrap's default container.
@@ -120,5 +122,9 @@ body {
     padding: 5px;
 }
 span.highlighted {
-    color: forestgreen;
+    color: red;
+}
+.toc ul {
+    padding-left: 20px;
+    padding-top: 5px;
 }

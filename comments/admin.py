@@ -6,7 +6,7 @@ from mptt.admin import MPTTModelAdmin
 # Register your models here.
 class CommentAdmin(MPTTModelAdmin):
     #fields显示admin界面的字段顺序
-    fields = ['parent', 'text', 'post', 'name']
+    fields = ['parent', 'text', 'post', 'name', 'tree_id']
     #侧边栏过来字段
     list_filter = ['created_time']
     #默认展示相关的字
@@ -16,7 +16,8 @@ class CommentAdmin(MPTTModelAdmin):
         'name',
         'text',
         'created_time',
-        'last_time'
+        'last_time',
+        'tree_id',
     )
     class Media:
         js = ('/static/js/kindeditor/kindeditor-all-min.js',

@@ -8,11 +8,13 @@ import markdown
 from django.utils.html import strip_tags
 # from ckeditor_uploader.fields import RichTextUploadingField
 from django.urls import reverse
+from comments.models import Comments
+from django.contrib.contenttypes.fields import GenericRelation
 #支持python2
 @python_2_unicode_compatible
 class Category(models.Model):
     #设置字段类型为char,最大长度为20。默认显示名称为 分类
-    Category_name = models.CharField(max_length=20, verbose_name=u'分类')
+    Category_name = models.TextField(max_length=200, verbose_name=u'分类')
 
     #多对一关系，反向查找
     #t=Tag.objects.get(pk=1)
@@ -29,7 +31,7 @@ class Category(models.Model):
 
 class Tag(models.Model):
 
-    Tag_name = models.CharField(max_length=20, verbose_name=u'标签')
+    Tag_name = models.TextField(max_length=200, verbose_name=u'标签')
 
     class Meta:
         verbose_name = u'标签'
@@ -49,7 +51,8 @@ class blog(models.Model):
     created_time = models.DateTimeField(default=timezone.now, verbose_name='博客创建时间')
     modified_time = models.DateTimeField(auto_now=True)
     excerpt = models.CharField(max_length=200, blank=True)
-
+    comment = GenericRelation(Comments, object_id_field='object_pk',
+                              content_type_field='content_type')
     #ForeignKey一对多的关系
     #添加
     #t1=Tag.objects.create(Tag_name="赞助")
@@ -105,6 +108,9 @@ class blog(models.Model):
     #默认返回值,并且在后台有显示信息
     def get_absolute_url(self):
         return reverse('blog:post', kwargs={'pk': self.pk})
+
+    def root_comments(self):
+        return self.Comments.filter(parent__isnull=True)
 
     def __str__(self):
         return self.blog_title

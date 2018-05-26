@@ -37,7 +37,7 @@ urlpatterns = [
     url(r'^admin/upload/(?P<dir_name>[^/]+)$', upload_image, name='upload_image'),
     url(r'^all/rss/$', AllPostsRssFeed(), name='rss'),
     url(r'^search/', include('haystack.urls')),
-    url(r'^comment/', include('comments.urls'), name='comment'),
+    url(r'^comments/', include('comments.urls', namespace='comments')),
     url(r'^sitemap\.xml$', sitemap,
         {'sitemaps': {'blog': GenericSitemap(info_dict, priority=0.6)}},
         name='django.contrib.sitemaps.views.sitemap'),

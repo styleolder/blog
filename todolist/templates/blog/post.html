@@ -1,11 +1,12 @@
 {% extends 'template/base.html' %}
 {% load blog_tags %}
 {% load mptt_tags %}
+{% load staticfiles %}
 {% block main %}
     <div class="blog-post">
         <h4 class="blog-post-title"><a href="{% url 'blog:post' blogs.pk %}">{{ blogs.blog_title }}</a></h4>
 
-        <p class="blog-post-meta">{{ blogs.created_time|date:"Y-m-d H:i:s" }}<a
+        <p class="blog-post-meta">{{ blogs.created_time|timesince }}前<a
                 href="{% url 'blog:user' blogs.author.pk %}">{{ blogs.author }}</a></p>
 
         <p class="blog-post-content">{{ blogs.blog_content|safe }}</p>
@@ -27,49 +28,34 @@
         <hr>
     </div>
     <h4>评论专区</h4>
+    <form action="#">
+            <div id="my-editormd">
+                <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc"
+                          style="display:none;"></textarea>
+                <!-- 注意：name属性的值-->
+                <textarea id="my-editormd-html-code" name="my-editormd-html-code" style="display:none;"></textarea>
+            </div>
+            <input type="submit" class="btn" style="float: right">
+    </form>
     {% if blogs.comments_set.all %}
         <span>总共{{ blogs.comments_set.all.count }}评论</span>
-        {% get_nodes as nodes %}
-        {% recursetree nodes %}
-            {% if node.post == blogs %}
-            <li>
-                {% if node.is_leaf_node %}
-                    <div class="post-comment" style="height: 80px;width: 100%" id="{{ node.id }}">
-                        <div class="post-comment-left"
-                             style="width: 60px;height: 60px;margin: 0;padding: 0;display: inline-block">
-                            <img src="/upload/{{ node.name.user_icon }}" style="width: 60px;height: 60px">
-                        </div>
-                        <div class="post-comment-right"
-                             style="font-size: 14px;display: inline-block;line-height: 14px;font-size: 14px">
-                            <span><a href="#">{{ node.name }}</a></span>
-                        <span class="post-comment-title" style="display:block"><a
-                                href="#">{{ node.text|safe }}</a></span>
-                            <span class="post-comment-title"><a href="#">{{ node.created_time }}</a></span>
-                        </div>
-                    </div>
-                    <hr>
-                {% else %}
-                    <div class="post-comment" style="height: 80px;width: 100%" id="{{ node.id }}">
-                        <div class="post-comment-left"
-                             style="width: 60px;height: 60px;margin: 0;padding: 0;display: inline-block;position: relative">
-                            <img src="/upload/{{ node.name.user_icon }}" style="width: 60px;height: 60px">
-                        </div>
-                        <div class="post-comment-right"
-                             style="font-size: 14px;display: inline-block;line-height: 14px;font-size: 14px">
-                            <span><a href="#">{{ node.name }}</a></span>
-                        <span class="post-comment-title" style="display:block"><a
-                                href="#">{{ node.text|safe }}</a></span>
-                            <span class="post-comment-title"><a href="#">{{ node.created_time }}</a></span>
-                        </div>
-                    </div>
-                    <hr>
-                    <ul>
-                        {{ children }}
-                    </ul>
-                {% endif %}
-            </li>
-            {% endif %}
-        {% endrecursetree %}
+        <form action="#">
+            <div id="my-editormd">
+                <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc"
+                          style="display:none;"></textarea>
+                <!-- 注意：name属性的值-->
+                <textarea id="my-editormd-html-code" name="my-editormd-html-code" style="display:none;"></textarea>
+            </div>
+            <input type="submit" class="btn" style="float: right">
+        </form>
+        {% for comment in blogs.comments_set.all %}
+                <div>
+                    <span>{{ comment.name }}</span>
+                    <span>{{ comment.text }}</span>
+                <span>{{ comment.get_descendants.count }}</span>
+                </div>
+
+        {% endfor %}
     {% else %}
         <span>没有有评论</span>
     {% endif %}
@@ -84,4 +70,36 @@
             {% endif %}
         </ul>
     {% endfor %}
+{% endblock %}
+{% block footerscript %}
+    <script type="application/javascript" src="{% static 'editor/js/editormd.js' %}"></script>
+    <script src="{% static 'editor/languages/zh-tw.js' %}"></script>
+    <script type="text/javascript">
+        $(function () {
+            editormd("my-editormd", {//注意1：这里的就是上面的DIV的id属性值
+                width: "100%",
+                height: 400,
+                syncScrolling: "single",
+                path: "{% static 'editor/lib/' %}",//注意2：你的路径
+                saveHTMLToTextarea: true,//注意3：这个配置，方便post提交表单
+                emoji: true,//emoji表情，默认关闭
+                taskList: true,
+                tocm: true, // Using [TOCM]
+                tex: true,// 开启科学公式TeX语言支持，默认关闭
+                flowChart: true,//开启流程图支持，默认关闭
+                sequenceDiagram: true,//开启时序/序列图支持，默认关闭,
+                dialogLockScreen: false,//设置弹出层对话框不锁屏，全局通用，默认为true
+                dialogShowMask: false,//设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+                dialogDraggable: false,//设置弹出层对话框不可拖动，全局通用，默认为true
+                dialogMaskOpacity: 0.4, //设置透明遮罩层的透明度，全局通用，默认值为0.1
+                dialogMaskBgColor: "#000",//设置透明遮罩层的背景颜色，全局通用，默认为#fff
+                codeFold: true,
+                toolbarIcons: "simple"
+            });
+            editormd.emoji = {
+                path: "{% static 'editor/images/emojis/' %}",
+                ext: ".png"
+            };
+        });
+    </script>
 {% endblock %}

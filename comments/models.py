@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 from django.db import models
 from todolist.models import User
-from blog.models import blog
 from django.utils.encoding import python_2_unicode_compatible
 from mptt.models import MPTTModel
 from django.utils import timezone
@@ -27,7 +26,6 @@ class Comments(MPTTModel):
     parent = models.ForeignKey("self", blank=True, null=True, related_name="children", default=None)
     name = models.ForeignKey(User)
     created_time = models.DateTimeField(default=timezone.now, verbose_name='创建时间')
-    post = models.ForeignKey(blog)
     last_time = models.DateTimeField(auto_now=True, verbose_name='最后更新时间')
 
     class Meta:

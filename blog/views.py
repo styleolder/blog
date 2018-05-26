@@ -11,6 +11,7 @@ from django.views.generic import ListView, DetailView
 from todolist.models import User
 from markdown.extensions.toc import TocExtension
 from django.utils.text import slugify
+from braces.views import SetHeadlineMixin
 
 class IndexView(ListView):
     model = blog
@@ -19,10 +20,11 @@ class IndexView(ListView):
     paginate_by = 5
 
 
-class PostView(DetailView):
+class PostView(SetHeadlineMixin,DetailView):
     model = blog
     template_name = 'blog/post.html'
     context_object_name = 'blogs'
+    headline = u"This is our headline"
 
     def get_object(self, queryset=None):
         blogs = super(PostView, self).get_object(queryset=queryset)
@@ -86,7 +88,7 @@ class TagsView(ListView):
 
     def get_queryset(self):
         tags = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
-        return super(TagsView, self).get_queryset().filter(tags=tags)
+        return super(TagsView, self).get_queryset().filter(tags=u'tags')
 
 
 class CategoryView(ListView):
