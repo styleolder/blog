@@ -20,7 +20,7 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 
 
-class IndexView(SuccessMessageMixin,SetHeadlineMixin, ListView):
+class IndexView(SuccessMessageMixin, SetHeadlineMixin, ListView):
     model = blog
     template_name = 'blog/index.html'
     context_object_name = 'blogs'
@@ -31,7 +31,7 @@ class IndexView(SuccessMessageMixin,SetHeadlineMixin, ListView):
 
 
 class PostView(SetHeadlineMixin, DetailView):
-    #权限检查
+    # 权限检查
     # permission_required = 'comments.can_open'
     # login_url = '/blog/login'
     model = blog
@@ -61,7 +61,7 @@ class PostView(SetHeadlineMixin, DetailView):
         return '%s' % self.object.blog_title
 
     def get_context_data(self, **kwargs):
-        context = super(PostView,self).get_context_data(**kwargs)
+        context = super(PostView, self).get_context_data(**kwargs)
         post = self.object
 
         try:
@@ -78,7 +78,7 @@ class PostView(SetHeadlineMixin, DetailView):
         context['post_list'] = post_list
         idx = post_list.index(post)
         try:
-            previous_post = post_list[idx-1 if idx >= 1 else None]
+            previous_post = post_list[idx - 1 if idx >= 1 else None]
         except (IndexError, TypeError):
             previous_post = None
 
@@ -155,6 +155,7 @@ class AddForm(forms.Form):
     username = forms.CharField(max_length=10)
     password = forms.CharField()
 
+
 def login(request):
     if request.method == 'POST':
         form = AddForm(request.POST)
@@ -175,5 +176,70 @@ def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/blog')
 
+
+from django.http import HttpResponse
+import json
+from elasticsearch import Elasticsearch
+
+
+def search(request):
+    key_words = request.GET.get('q', '')
+    page = request.GET.get('page', '')
+    if not page:
+        page = 1
+    else:
+        try:
+            page = int(page)
+        except Exception as e:
+            print e
+            page = 1
+    import datetime
+
+    start_time = datetime.datetime.now()
+    es = Elasticsearch(hosts=['192.168.1.13:9200'])
+    resultes = es.search(index="jobbole", body={
+        "query": {
+            "multi_match": {
+                "query": key_words,
+                "fields": ["title", "article_content", "article_tags"]
+            }
+        },
+        "highlight": {
+            "pre_tags": ["<span class='highlight'>"],
+            "post_tags": ["</span>"],
+            "fields": {
+                "title": {},
+                "article_content": {},
+                "article_tags": {}
+            }
+        },
+        "from": (page - 1) / 10,
+        "size": 10
+    })
+
+    re_data = []
+    total = resultes["hits"]["total"]
+    for hit in resultes["hits"]["hits"]:
+        resultes_dict = {}
+        if "title" in hit["highlight"]:
+            resultes_dict["title"] = hit["highlight"]["title"]
+        else:
+            resultes_dict["title"] = hit["_source"]["title"]
+
+        if "article_content" in hit["highlight"]:
+            resultes_dict["article_content"] = "".join(hit["highlight"]["article_content"])[:140] + "..."
+        else:
+            resultes_dict["article_content"] = hit["_source"]["article_content"][:140] + "..."
+
+        if "article_tags" in hit["highlight"]:
+            resultes_dict["article_tags"] = "".join(hit["highlight"]["article_tags"])
+        else:
+            resultes_dict["article_tags"] = hit["_source"]["article_tags"]
+        resultes_dict["score"] = hit["_score"]
+        re_data.append(resultes_dict)
+    end_time = datetime.datetime.now()
+    total_time = (end_time - start_time).microseconds
+    parms = {"total": total, "total_time": total_time, "data": re_data}
+    return HttpResponse(json.dumps(parms), content_type="application/json")
 
 

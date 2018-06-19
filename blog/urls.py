@@ -12,4 +12,5 @@ urlpatterns = [
       url(r'^archives/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$', views.ArchivesView.as_view(), name='archives'),
       url(r'^tags/(?P<pk>[0-9]+)', views.TagsView.as_view(),name='tags'),
       url(r'^user/(?P<pk>[0-9]+)', views.UserView.as_view(),name='user'),
+      url(r'^search$', views.search,name='search'),
 ]
