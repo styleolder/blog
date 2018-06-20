@@ -6,12 +6,14 @@
         <option name="rootFolder" value="$MODULE_DIR$" />
         <option name="settingsModule" value="web/settings.py" />
         <option name="manageScript" value="manage.py" />
+        <option name="environment" value="&lt;map/&gt;" />
+        <option name="commandsToSkip" value="" />
       </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Python 2.7.10 (C:\Python27\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 2.7.13 (C:\Python27\python.exe)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="sass-stdlib" level="application" />
   </component>
@@ -24,4 +26,3 @@
     </option>
   </component>
 </module>
-

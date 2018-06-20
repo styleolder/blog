@@ -18,6 +18,7 @@ from django.db.models import Count
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+import datetime
 
 
 class IndexView(SuccessMessageMixin, SetHeadlineMixin, ListView):
@@ -103,7 +104,7 @@ class ArchivesView(ListView):
         month = int(self.kwargs.get('month'))
         return super(ArchivesView, self).get_queryset().filter(created_time__year=year,
                                                                created_time__month=month
-        )
+                                                               )
 
 
 class TagsView(SetHeadlineMixin, ListView):
@@ -193,7 +194,6 @@ def search(request):
         except Exception as e:
             print e
             page = 1
-    import datetime
 
     start_time = datetime.datetime.now()
     es = Elasticsearch(hosts=['192.168.1.13:9200'])
@@ -213,7 +213,7 @@ def search(request):
                 "article_tags": {}
             }
         },
-        "from": (page - 1) / 10,
+        "from": (page - 1) * 10,
         "size": 10
     })
 
@@ -222,7 +222,7 @@ def search(request):
     for hit in resultes["hits"]["hits"]:
         resultes_dict = {}
         if "title" in hit["highlight"]:
-            resultes_dict["title"] = hit["highlight"]["title"]
+            resultes_dict["title"] = "".join(hit["highlight"]["title"])
         else:
             resultes_dict["title"] = hit["_source"]["title"]
 
@@ -236,10 +236,11 @@ def search(request):
         else:
             resultes_dict["article_tags"] = hit["_source"]["article_tags"]
         resultes_dict["score"] = hit["_score"]
+        resultes_dict["article_url"] = hit["_source"]["article_url"]
+        resultes_dict["article_img"] = "".join(hit["_source"]["article_img"])
+        resultes_dict["create_time"] = hit["_source"]["create_time"]
         re_data.append(resultes_dict)
     end_time = datetime.datetime.now()
-    total_time = (end_time - start_time).microseconds
+    total_time = float((end_time - start_time).microseconds) / 100000
     parms = {"total": total, "total_time": total_time, "data": re_data}
     return HttpResponse(json.dumps(parms), content_type="application/json")
-
-
