@@ -237,7 +237,10 @@ def search(request):
             resultes_dict["article_tags"] = hit["_source"]["article_tags"]
         resultes_dict["score"] = hit["_score"]
         resultes_dict["article_url"] = hit["_source"]["article_url"]
-        resultes_dict["article_img"] = "".join(hit["_source"]["article_img"])
+        if "article_img" in resultes_dict:
+            resultes_dict["article_img"] = "".join(hit["_source"]["article_img"])
+        else:
+            resultes_dict["article_img"] = ""
         resultes_dict["create_time"] = hit["_source"]["create_time"]
         re_data.append(resultes_dict)
     end_time = datetime.datetime.now()
