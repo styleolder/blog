@@ -59,7 +59,7 @@ Flask==0.12.2
 future==0.16.0
 geoip2==2.8.0
 haystack==0.36
-httplib2==0.11.0
+httplib2==0.18.0
 hyperlink==17.3.1
 idna==2.6
 incremental==17.5.0
