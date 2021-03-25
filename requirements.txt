@@ -100,7 +100,7 @@ python-ptrace==0.9.3
 pytz==2017.3
 PyVirtualDisplay==0.2.1
 pywin32==223
-PyYAML==3.12
+PyYAML==5.4
 queuelib==1.4.2
 redis==2.10.6
 request==0.0.22
