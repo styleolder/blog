@@ -106,7 +106,7 @@ redis==2.10.6
 request==0.0.22
 requests==2.18.4
 requests-oauthlib==0.8.0
-Scrapy==1.4.0
+Scrapy==1.8.1
 scrapy-fake-useragent==1.1.0
 scrapy-redis==0.6.8
 scrapyd==1.2.0
