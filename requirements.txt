@@ -17,7 +17,7 @@ cssselect==1.0.1
 diff-match-patch==20121119
 Django==1.11.13
 django-allauth==0.32.0
-django-anymail==0.11.1
+django-anymail==1.2.1
 django-appconf==1.0.2
 django-braces==1.11.0
 django-ckeditor==5.4.0
